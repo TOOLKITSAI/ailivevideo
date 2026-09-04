@@ -1,0 +1,12 @@
+.worktrees/
+.superpowers/
+output/
+tmp/
+qa_render/
+*.docx
+site/node_modules/
+site/.astro/
+site/dist/
+site/playwright-report/
+site/test-results/
+site/ailivevideo-release.zip
