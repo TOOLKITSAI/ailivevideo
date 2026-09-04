@@ -19,15 +19,16 @@
     "@astrojs/sitemap": "^3.7.4",
     "astro": "5.14.4",
     "gray-matter": "^4.0.3",
-    "pagefind": "^1.5.2"
+    "pagefind": "^1.5.2",
+    "zod": "3.25.76"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@playwright/test": "^1.57.0",
     "lighthouse": "^12.8.2",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.0",
-    "vitest": "^4.0.16"
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
   },
   "allowScripts": {
     "esbuild": true
