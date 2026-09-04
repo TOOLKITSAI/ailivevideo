@@ -1,0 +1,116 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ToolCard, { type DirectoryTool } from '../../components/ToolCard.astro';
+import { CATEGORIES } from '../../data/categories';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedTools } from '../../lib/content';
+import { serializeJsonForScript, softwareApplicationJsonLd } from '../../lib/seo';
+
+interface Props {
+  tool: CollectionEntry<'tools'>;
+}
+
+export async function getStaticPaths() {
+  const tools = await getPublishedTools();
+  return tools.map((entry) => ({ params: { slug: entry.id }, props: { tool: entry } }));
+}
+
+const { tool } = Astro.props;
+const allPublishedTools = await getPublishedTools();
+const alternatives = tool.data.alternatives
+  .map((slug) => allPublishedTools.find((entry) => entry.id === slug))
+  .filter((entry): entry is CollectionEntry<'tools'> => Boolean(entry));
+const categoryNames = tool.data.categories.map((category) => CATEGORIES[category].name);
+const canonicalPath = `/tools/${tool.id}/`;
+const canonicalUrl = new URL(canonicalPath, Astro.site ?? 'https://ailivevideo.net').href;
+const jsonLd = serializeJsonForScript(softwareApplicationJsonLd(tool.data, canonicalUrl));
+const lastVerified = tool.data.lastVerified.toISOString().slice(0, 10);
+
+function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
+  return {
+    slug: entry.id,
+    name: entry.data.name,
+    categorySlugs: entry.data.categories,
+    categoryLabel: CATEGORIES[entry.data.categories[0]].name,
+    oneLineVerdict: entry.data.oneLineVerdict,
+    bestFor: entry.data.bestFor,
+    freeAccessStatus: entry.data.freeAccessStatus,
+    apiAvailable: entry.data.apiAvailable,
+    realTimeCapability: entry.data.realTimeCapability,
+  };
+}
+---
+
+<BaseLayout title={`${tool.data.name} — AI Live Video Tools`} description={tool.data.description} canonicalPath={canonicalPath}>
+  <script type="application/ld+json" is:inline set:html={jsonLd}></script>
+  <div class="container tool-detail">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools/' }, { label: tool.data.name }]} />
+
+    <header class="tool-detail__hero">
+      <p class="eyebrow">{categoryNames.join(' · ')}</p>
+      <h1>{tool.data.name}</h1>
+      <p class="tool-detail__description">{tool.data.description}</p>
+      <a class="button" href={tool.data.officialUrl} target="_blank" rel="noreferrer">Visit official website</a>
+    </header>
+
+    <section aria-labelledby="verdict-heading">
+      <h2 id="verdict-heading">Editorial verdict</h2>
+      <p>{tool.data.oneLineVerdict}</p>
+      <p><strong>Best for:</strong> {tool.data.bestFor}</p>
+    </section>
+
+    <section aria-labelledby="capabilities-heading">
+      <h2 id="capabilities-heading">Capabilities</h2>
+      <ul>{tool.data.capabilities.map((capability) => <li>{capability}</li>)}</ul>
+      <h3>What real-time means</h3>
+      <p>{tool.data.realTimeDefinition}</p>
+    </section>
+
+    <section aria-labelledby="access-heading">
+      <h2 id="access-heading">Access and pricing</h2>
+      <dl>
+        <div><dt>Pricing model</dt><dd>{tool.data.pricingModel}</dd></div>
+        <div><dt>Free access</dt><dd>{tool.data.freeAccessStatus}</dd></div>
+        <div><dt>API availability</dt><dd>{tool.data.apiAvailable}</dd></div>
+        <div><dt>Real-time capability</dt><dd>{tool.data.realTimeCapability}</dd></div>
+      </dl>
+      <p><a href={tool.data.officialUrl} target="_blank" rel="noreferrer">Check official pricing</a></p>
+    </section>
+
+    <section class="tool-detail__columns" aria-label="Editorial assessment">
+      <div><h2>Pros</h2><ul>{tool.data.pros.map((pro) => <li>{pro}</li>)}</ul></div>
+      <div><h2>Cons</h2><ul>{tool.data.cons.map((con) => <li>{con}</li>)}</ul></div>
+    </section>
+
+    <section aria-labelledby="sources-heading">
+      <h2 id="sources-heading">Official sources</h2>
+      <ol>{tool.data.officialSources.map((source, index) => <li><a href={source} target="_blank" rel="noreferrer">Source {index + 1}</a></li>)}</ol>
+      <p class="tool-detail__verification">Last verified: <time datetime={lastVerified}>{lastVerified}</time></p>
+    </section>
+
+    {alternatives.length > 0 && (
+      <section aria-labelledby="alternatives-heading">
+        <h2 id="alternatives-heading">Alternatives</h2>
+        <div class="tool-grid">{alternatives.map((alternative) => <ToolCard tool={toDirectoryTool(alternative)} />)}</div>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .tool-detail { padding-bottom: 4rem; }
+  .tool-detail__hero { padding-block: 2rem 3rem; }
+  .tool-detail__description { max-width: 44rem; color: var(--color-muted); font-size: 1.125rem; }
+  .tool-detail section { max-width: 48rem; margin-top: 2rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-soft); }
+  .tool-detail h2 { font-size: 1.4rem; }
+  .tool-detail h3 { margin-top: 1.5rem; font-size: 1.1rem; }
+  .tool-detail ul, .tool-detail ol { padding-left: 1.25rem; }
+  .tool-detail li + li { margin-top: 0.5rem; }
+  dl { display: grid; gap: 1rem; margin: 0; }
+  dt { color: var(--color-muted); font-size: 0.875rem; font-weight: 700; }
+  dd { margin: 0.25rem 0 0; }
+  .tool-detail__verification { margin-top: 1rem; color: var(--color-muted); font-size: 0.875rem; }
+  .tool-detail__columns { display: grid; gap: 1.5rem; }
+  @media (min-width: 48rem) { .tool-detail__columns { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
