@@ -9,23 +9,43 @@ const visibleCards = (page: import('@playwright/test').Page) => page.locator('[d
 
 test('directory controls are keyboard accessible', async ({ page }) => {
   await page.goto('/tools/');
-  await page.keyboard.press('Tab');
   const skip = page.getByRole('link', { name: 'Skip to main content' });
+  await page.keyboard.press('Tab');
   await expect(skip).toBeFocused();
   await expect(skip).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)');
   await page.keyboard.press('Enter');
   await expect(page.getByRole('main')).toBeFocused();
-  await page.getByRole('searchbox', { name: 'Search tools' }).focus();
-  await page.keyboard.press('Tab');
-  await expect(page.getByRole('combobox', { name: 'Category' })).toBeFocused();
-  await page.keyboard.press('Tab');
-  await expect(page.getByRole('checkbox', { name: 'Free or trial access' })).toBeFocused();
-  await page.getByRole('checkbox', { name: 'Free or trial access' }).check();
-  await expect(visibleCards(page).first()).toBeVisible();
-  await visibleCards(page).first().getByRole('link', { name: /View .* details/ }).focus();
-  await expect(visibleCards(page).first().getByRole('link', { name: /View .* details/ })).toBeFocused();
-});
 
+  await page.reload();
+  const headerLink = page.getByRole('link', { name: 'Tools', exact: true });
+  const search = page.getByRole('searchbox', { name: 'Search tools' });
+  const category = page.getByRole('combobox', { name: 'Category' });
+  const free = page.getByRole('checkbox', { name: 'Free or trial access' });
+  const api = page.getByRole('checkbox', { name: 'API available' });
+  const firstCardLink = visibleCards(page).first().getByRole('link', { name: /View .* details/ });
+  for (let tab = 0; tab < 8; tab += 1) {
+    await page.keyboard.press('Tab');
+    if (await headerLink.evaluate((element) => element === document.activeElement)) break;
+  }
+  await expect(headerLink).toBeFocused();
+  await expect(headerLink).toBeVisible();
+  await expect(headerLink).toHaveCSS('outline-style', 'solid');
+  for (const control of [search, category, free, api]) {
+    for (let tab = 0; tab < 8; tab += 1) {
+      await page.keyboard.press('Tab');
+      if (await control.evaluate((element) => element === document.activeElement)) break;
+    }
+    await expect(control).toBeFocused();
+    await expect(control).toBeVisible();
+  }
+  for (let tab = 0; tab < 8; tab += 1) {
+    await page.keyboard.press('Tab');
+    if (await firstCardLink.evaluate((element) => element === document.activeElement)) break;
+  }
+  await expect(firstCardLink).toBeFocused();
+  await expect(firstCardLink).toBeVisible();
+  await expect(firstCardLink).toHaveCSS('outline-style', 'solid');
+});
 test('directory filters each capability and combines matching results', async ({ page }) => {
   await page.goto('/tools/');
   const data = await page.locator('#directory-tools').textContent();
