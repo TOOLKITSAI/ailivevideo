@@ -7,8 +7,8 @@ oneLineVerdict: A native real-time candidate for interactive worlds, shared sess
 bestFor: Teams prototyping interactive worlds, live media, simulation, XR, or shared visual experiences
 capabilities: [Continuous visual worlds, Interactive prompts, Integrated audio, Shared worlds, Personalized avatars, Partner API path]
 realTimeDefinition: "Native: R1 is designed as a continuous interactive audiovisual stream; public latency language is marketing, not a service-level guarantee."
-pricingModel: Limited-time free web availability was announced; qualified-partner API access has no public commercial rate.
-freeAccessStatus: free
+pricingModel: Historical limited-time free web offer; current public commercial R1 pricing is not verified.
+freeAccessStatus: unknown
 apiAvailable: unknown
 realTimeCapability: native
 pros: [Continuous interactive output, Shared-world mode, Clear difference from clip models]
@@ -32,7 +32,7 @@ The official pages make strong timing language, but the terms are not interchang
 
 There is a concrete limit on the February 2026 partner page: use cases needing less than one second of latency are listed as not supported. That is an official access limitation, not a promise that all other requests meet a particular latency. The same update describes 720p HD generation and integrated audio for the partner path. PixVerse’s later overview says resolution, session behavior, and access may vary between the web experience, shared-world experience, and partner program. Plan against the route you actually intend to use, not the most favorable claim found elsewhere on the site.
 
-The April shared-world announcement says R1 was available to PixVerse users free of charge for a limited time and that shared worlds no longer had a session limit. Both statements are time- and experience-specific. They do not establish permanent free access, commercial terms, regional availability, queue priority, or general API entitlement. PixVerse describes limited API access for qualified partners; because that is not an open, priced public API in the cited material, this record leaves API availability as unknown rather than turning a partner pathway into a universal capability.
+The April shared-world announcement says R1 was available to PixVerse users free of charge for a limited time and that shared worlds no longer had a session limit. The currently accessible live page identifies R1 but does not confirm that offer or publish a current free entitlement. Treat the older offer as expired or unverified for current access; this record therefore sets free access to unknown. Neither page establishes commercial terms, regional availability, queue priority, or general API entitlement. PixVerse describes limited API access for qualified partners; because that is not an open, priced public API in the cited material, this record leaves API availability as unknown rather than turning a partner pathway into a universal capability.
 
 ## Product and safety design
 
@@ -41,3 +41,4 @@ A useful R1 proof of concept should be evaluated as a multiplayer live system. E
 R1 is not automatically the correct PixVerse choice. PixVerse itself points teams to V6 or C1 for a polished ad, social clip, cinematic shot, or downloadable MP4. That distinction prevents a familiar mistake: treating a live world as though it were a predictable production render. A continuous session needs moderation, systems ownership, observability, and a graceful static fallback.
 
 Choose R1 when the audience must influence a visual world while it runs. Compare Decart for live transformation of an existing feed, MiniMax H3 Max or Runway for short discrete generation, and World Labs when persistent spatial assets and later navigation matter more than continuous frame generation.
+

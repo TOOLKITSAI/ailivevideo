@@ -7,14 +7,14 @@ oneLineVerdict: A native live-transformation system for teams that need generati
 bestFor: Enterprises, brands, creators, and developers prototyping live video transformation and interactive media
 capabilities: [Character swaps, Object edits, Background transformation, Style changes, Visual effects, Live stream transformation]
 realTimeDefinition: "Native: Lucy is described as continuously transforming live video; Decart’s numerical timing claims are vendor product claims, not a public SLA."
-pricingModel: Contact-led access; no public Lucy commercial rate is inferred from the reviewed product material.
+pricingModel: Pay-as-you-go realtime API pricing; Lucy 2.1 realtime 720p is listed at 0.02 USD per active generation second.
 freeAccessStatus: unknown
-apiAvailable: unknown
+apiAvailable: yes
 realTimeCapability: native
 pros: [Continuous live transformation, Broad edit categories, Explicit live-stream use cases]
-cons: [Public timing claims conflict, Contact-led access, No public SLA]
+cons: [Version-specific timing claims conflict, API usage is metered, No public SLA]
 alternatives: [pixverse-r1, minimax-h3-max, runway, world-labs]
-officialSources: [https://decart.ai/lucy, https://decart.ai/publications/lucy-2-introducing-sota-video-generation-in-realtime, https://docs.platform.decart.ai/pricing]
+officialSources: [https://decart.ai/lucy, https://decart.ai/publications/lucy-2-introducing-sota-video-generation-in-realtime, https://docs.platform.decart.ai/getting-started/pricing, https://docs.platform.decart.ai/models/realtime/lucy-2.1]
 lastVerified: 2026-09-04
 editorialStatus: published
 featured: false
@@ -38,6 +38,7 @@ Treat Lucy as a live graphics system with generative behavior. Define what an op
 
 Test stability as well as speed. Use a representative camera or encoded stream, scenes with people and products, abrupt movement, different lighting, a rapid prompt change, an interrupted input, and a long session. Capture source resolution, rendered resolution, processing path, visible delay, frame cadence, dropped frames, artifacts, reconnection behavior, and operator workload. Include consent and disclosure for transformed people, particularly for character swaps and apparel changes.
 
-The reviewed Lucy page asks prospective users to try the product or talk to an expert. It does not establish an open public API, free plan, price, regional availability, queue policy, or service-level agreement. This record therefore leaves API and free-access fields unknown and describes access as contact-led rather than guessing from an embedded demo.
+Platform documentation adds a public Lucy 2.1 realtime API: it connects a camera stream through WebRTC at 1280 by 720, and pricing lists 0.02 USD per active generation second. New accounts receive evaluation credits, but no durable free-plan allowance is published, so free access remains unknown. Those 720p API details do not validate the older product-page 100 FPS or Lucy 2 30 FPS claims. No geographic, queue, or service-level guarantee is published.
 
 Choose Lucy when the work starts from a live feed that must become editable in motion. Compare PixVerse R1 for a generated, persistent interactive world; MiniMax H3 Max and Runway for discrete rendered clips; and World Labs for spatial-world creation that is generated before it is explored.
+
