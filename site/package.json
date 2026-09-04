@@ -1,0 +1,30 @@
+{
+  "name": "site",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "validate:content": "tsx scripts/check-content.ts",
+    "release:check": "npm run validate:content && npm run check && npm run test:unit && npm run build && node scripts/check-built-site.mjs && npm run test:e2e"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.1",
+    "gray-matter": "^4.0.3",
+    "pagefind": "^1.5.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@playwright/test": "^1.57.0",
+    "lighthouse": "^12.8.2",
+    "tsx": "^4.21.0",
+    "vitest": "^4.0.16"
+  },
+  "allowScripts": { "esbuild": true }
+}
