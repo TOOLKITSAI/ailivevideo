@@ -6,9 +6,20 @@ export async function getPublishedTools(): Promise<CollectionEntry<'tools'>[]> {
   return tools.sort((first, second) => first.data.name.localeCompare(second.data.name, 'en'));
 }
 
+export async function getToolsByCategory(category: CategorySlug) {
+  return (await getPublishedTools()).filter((tool) => tool.data.categories.includes(category));
+}
+
 export async function getPublishedToolsByCategory(category: CategorySlug): Promise<CollectionEntry<'tools'>[]> {
-  const tools = await getPublishedTools();
-  return tools.filter((tool) => tool.data.categories.includes(category));
+  return getToolsByCategory(category);
+}
+
+export async function getPublishedComparisons(): Promise<CollectionEntry<'comparisons'>[]> {
+  return getCollection('comparisons', ({ data }) => data.editorialStatus === 'published');
+}
+
+export async function getPublishedGuides(): Promise<CollectionEntry<'guides'>[]> {
+  return getCollection('guides', ({ data }) => data.editorialStatus === 'published');
 }
 
 export async function getFeaturedTools(): Promise<CollectionEntry<'tools'>[]> {
