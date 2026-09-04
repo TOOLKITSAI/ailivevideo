@@ -13,9 +13,11 @@ interface Props {
   noindex?: boolean;
   structuredData?: unknown[];
   breadcrumbs?: BreadcrumbItem[];
+  pagefindContentType?: string;
+  pagefindCategories?: string[];
 }
 
-const { title, description, canonicalPath, noindex = false, structuredData = [], breadcrumbs = [] } = Astro.props;
+const { title, description, canonicalPath, noindex = false, structuredData = [], breadcrumbs = [], pagefindContentType, pagefindCategories = [] } = Astro.props;
 const pageCanonicalUrl = canonicalUrl(canonicalPath);
 const jsonLd = [...structuredData, ...(breadcrumbs.length > 0 ? [breadcrumbJsonLd(breadcrumbs)] : [])];
 ---
@@ -24,14 +26,16 @@ const jsonLd = [...structuredData, ...(breadcrumbs.length > 0 ? [breadcrumbJsonL
 <html lang="en">
   <head>
     <SeoHead title={title} description={description} canonicalUrl={pageCanonicalUrl} noindex={noindex} />
+    {pagefindContentType && <meta data-pagefind-filter="content_type" content={pagefindContentType} />}
+    {pagefindCategories.map((category) => <meta data-pagefind-filter="category" content={category} />)}
     {jsonLd.map((value) => <JsonLd value={value} />)}
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <Header />
-    <main id="main-content" tabindex="-1">
+    <div data-pagefind-ignore><Header /></div>
+    <main id="main-content" tabindex="-1" data-pagefind-body>
       <slot />
     </main>
-    <Footer />
+    <div data-pagefind-ignore><Footer /></div>
   </body>
 </html>

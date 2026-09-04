@@ -1,4 +1,5 @@
 ---
+import SiteSearch from '../components/SiteSearch.astro';
 import ToolCard, { type DirectoryTool } from '../components/ToolCard.astro';
 import { CATEGORIES, CATEGORY_SLUGS } from '../data/categories';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -32,6 +33,7 @@ const latestGuides = guides.sort((first, second) => second.data.updatedAt.getTim
   title="AI Live Video"
   description="Curated AI live video tools and practical guides."
   canonicalPath="/"
+  pagefindContentType="homepage"
   structuredData={[websiteJsonLd()]}
 >
   <section class="homepage-hero" aria-labelledby="homepage-title">
@@ -39,13 +41,7 @@ const latestGuides = guides.sort((first, second) => second.data.updatedAt.getTim
       <p class="eyebrow">Curated and independently reviewed</p>
       <h1 id="homepage-title">Find the right AI live video tool</h1>
       <p class="homepage-hero__description">Explore curated tools for avatars, live shopping, translation and real-time video generation.</p>
-      <form class="homepage-search" action="/tools/" method="get" data-pagefind-search>
-        <label for="homepage-search">Search AI live video tools</label>
-        <div class="homepage-search__controls">
-          <input id="homepage-search" name="q" type="search" placeholder="Search tools, comparisons, and guides" autocomplete="off" />
-          <button class="button" type="submit">Search</button>
-        </div>
-      </form>
+      <SiteSearch />
       <a class="homepage-hero__browse" href="/tools/">Browse all tools</a>
     </div>
   </section>

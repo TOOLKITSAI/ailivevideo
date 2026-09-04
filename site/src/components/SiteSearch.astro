@@ -1,0 +1,97 @@
+<form class="homepage-search" action="/tools/" method="get" data-pagefind-search>
+  <label for="homepage-search">Search AI live video tools</label>
+  <div class="homepage-search__controls">
+    <input id="homepage-search" name="q" type="search" placeholder="Search tools, comparisons, and guides" autocomplete="off" />
+    <button class="button" type="submit">Search</button>
+  </div>
+  <div class="site-search__results" aria-live="polite" aria-atomic="true" data-search-results></div>
+</form>
+
+<script>
+  type PagefindResultData = { url: string; title: string; excerpt: string };
+  type PagefindResult = { data: () => Promise<PagefindResultData> };
+  type PagefindApi = { init: () => Promise<void>; search: (query: string) => Promise<{ results: PagefindResult[] }> };
+
+  const form = document.querySelector<HTMLFormElement>('[data-pagefind-search]');
+  const input = form?.querySelector<HTMLInputElement>('input[type="search"]');
+  const results = form?.querySelector<HTMLElement>('[data-search-results]');
+  let pagefind: PagefindApi | undefined;
+  let loading: Promise<PagefindApi | undefined> | undefined;
+  let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+
+  const message = (text: string) => {
+    if (results) results.textContent = text;
+  };
+
+  const safePath = (value: string) => {
+    const url = new URL(value, window.location.origin);
+    return url.origin === window.location.origin ? `${url.pathname}${url.search}${url.hash}` : '/';
+  };
+
+  const loadPagefind = async () => {
+    if (pagefind) return pagefind;
+    if (loading) return loading;
+    loading = (async () => {
+      try {
+        const response = await fetch('/pagefind/pagefind.js');
+        if (!response.ok) throw new Error('Pagefind bundle is unavailable');
+        const pagefindModuleUrl = '/pagefind/pagefind.js';
+        const module = await import(/* @vite-ignore */ pagefindModuleUrl) as PagefindApi;
+        await module.init();
+        pagefind = module;
+        return module;
+      } catch {
+        message('Search is available in the production preview');
+        return undefined;
+      }
+    })();
+    return loading;
+  };
+
+  const renderResults = (matches: PagefindResultData[]) => {
+    if (!results) return;
+    results.replaceChildren();
+    if (matches.length === 0) {
+      results.textContent = 'No matching tools or guides';
+      return;
+    }
+    const list = document.createElement('ul');
+    list.className = 'site-search__result-list';
+    for (const match of matches) {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = safePath(match.url);
+      link.textContent = match.title;
+      const excerpt = document.createElement('p');
+      excerpt.textContent = match.excerpt.replace(/<[^>]*>/g, '');
+      const url = document.createElement('small');
+      url.textContent = safePath(match.url);
+      item.append(link, excerpt, url);
+      list.append(item);
+    }
+    results.append(list);
+  };
+
+  const search = async () => {
+    const query = input?.value.trim() ?? '';
+    if (!query) {
+      if (results) results.replaceChildren();
+      return;
+    }
+    const api = await loadPagefind();
+    if (!api) return;
+    const response = await api.search(query);
+    const matches = await Promise.all(response.results.slice(0, 8).map((result) => result.data()));
+    renderResults(matches);
+  };
+
+  input?.addEventListener('focus', () => { void loadPagefind(); }, { once: true });
+  input?.addEventListener('input', () => {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => { void search(); }, 150);
+  });
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    void search();
+  });
+</script>

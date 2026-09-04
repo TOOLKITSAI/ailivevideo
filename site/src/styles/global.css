@@ -108,3 +108,9 @@ main { min-height: calc(100vh - 12rem); }
 @media (min-width: 64rem) {
   .category-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+.site-search__results:not(:empty) { margin-top: 1rem; }
+.site-search__result-list { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+.site-search__result-list li { padding-top: 0.75rem; border-top: 1px solid var(--color-border); }
+.site-search__result-list a { font-weight: 750; }
+.site-search__result-list p { margin: 0.25rem 0; color: var(--color-muted); }
+.site-search__result-list small { color: var(--color-muted); }

@@ -35,3 +35,9 @@ test('homepage has no horizontal overflow at the iPhone 13 width', async ({ page
   }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 });
+
+test('homepage search exposes a polite results region', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('[aria-live="polite"][data-search-results]')).toHaveCount(1);
+});
