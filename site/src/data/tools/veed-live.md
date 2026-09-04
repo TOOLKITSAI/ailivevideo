@@ -36,7 +36,7 @@ Automatic recording should be treated as a convenient archive, not as an unteste
 
 ## AI, captions, and integration boundaries
 
-VEED’s recorder page describes a browser recorder that can capture a screen, camera, and audio, then offer editing after the session. It mentions Magic Cut and eye-contact or background tools. Those are post-capture transformations; they should not be represented as live caption compliance, live translation, or real-time generative video. The meeting page calls out auto-subtitling and translation for recordings, but it does not provide enough evidence here for a live translated-audio or closed-caption service claim.
+The cited meeting page establishes a browser meeting workflow with supplied screen or webcam material, multi-platform live delivery, automatic recording, presentation upload, and annotation. It does not establish a live caption-compliance service, live translation, or real-time generative video. Any later editing is a separate workflow around the recorded material, so production requirements must describe its timing and review process rather than treating it as part of the live output.
 
 Pricing is intentionally cautious. VEED’s official page says free users can create and edit, with subscription-dependent limits, while premium subscriptions add tools. The reviewed pricing and live pages do not state a durable live-production destination allowance or a complete live-specific price card, so this profile does not invent one. API availability for the documented live workflow is also unknown: the homepage’s references to video APIs do not establish that this particular meeting-streaming product has a public production API.
 
