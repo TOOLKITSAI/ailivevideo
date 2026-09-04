@@ -47,8 +47,13 @@ test('homepage search exposes a polite results region', async ({ page }) => {
   await expect(page.locator('[aria-live="polite"][data-search-results]')).toHaveCount(1);
 });
 
-test('homepage search returns a known tool route', async ({ page }) => {
+test('homepage search renders the indexed HeyGen result in its results region', async ({ page }) => {
   await page.goto('/');
+  const results = page.locator('[data-search-results]');
   await page.getByRole('searchbox', { name: 'Search AI live video tools' }).fill('HeyGen');
-  await expect(page.locator('a[href="/tools/heygen/"]')).toHaveAttribute('href', /\/tools\/heygen\//);
+
+  const heygenResult = results.getByRole('link', { name: 'HeyGen', exact: true });
+  await expect(heygenResult).toBeVisible();
+  await expect(heygenResult).toHaveAttribute('href', '/tools/heygen/');
+  await expect(results).not.toContainText('Search is available in the production preview');
 });
