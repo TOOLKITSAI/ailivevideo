@@ -50,11 +50,12 @@ test('directory controls are keyboard accessible', async ({ page }) => {
 test('directory filters each capability and combines matching results', async ({ page }) => {
   await page.goto('/tools/');
   const data = await page.locator('#directory-tools').textContent();
-  const tools = JSON.parse(data ?? '[]') as Array<{ categorySlugs: string[]; freeAccessStatus: string; apiAvailable: string }>;
+  const tools = JSON.parse(data ?? '[]') as Array<{ categorySlugs: string[]; freeAccessStatus: string; apiAvailable: string; realTimeCapability: string }>;
   const search = page.getByRole('searchbox', { name: 'Search tools' });
   const category = page.getByRole('combobox', { name: 'Category' });
   const free = page.getByRole('checkbox', { name: 'Free or trial access' });
   const api = page.getByRole('checkbox', { name: 'API available' });
+  const realTime = page.getByRole('checkbox', { name: 'Real-time capable' });
   const expectCount = async (predicate: (tool: typeof tools[number]) => boolean) => {
     await expect(page.locator('[data-result-count]')).toHaveText(String(tools.filter(predicate).length));
     await expect(visibleCards(page)).toHaveCount(tools.filter(predicate).length);
@@ -72,10 +73,17 @@ test('directory filters each capability and combines matching results', async ({
   await expectCount((tool) => tool.apiAvailable === 'yes');
   await api.uncheck();
 
+  await realTime.check();
+  await expectCount((tool) => tool.realTimeCapability === 'native' || tool.realTimeCapability === 'near-real-time');
+  await realTime.uncheck();
+
   await category.selectOption('ai-avatars');
   await free.check();
   await api.check();
-  await expectCount((tool) => tool.categorySlugs.includes('ai-avatars') && (tool.freeAccessStatus === 'free' || tool.freeAccessStatus === 'trial') && tool.apiAvailable === 'yes');
+  await realTime.check();
+  const combined = (tool: typeof tools[number]) => tool.categorySlugs.includes('ai-avatars') && (tool.freeAccessStatus === 'free' || tool.freeAccessStatus === 'trial') && tool.apiAvailable === 'yes' && (tool.realTimeCapability === 'native' || tool.realTimeCapability === 'near-real-time');
+  expect(tools.filter(combined)).not.toHaveLength(0);
+  await expectCount(combined);
 
   await search.fill('zzzz-not-a-tool');
   await expect(page.getByRole('heading', { name: 'No tools match these filters yet' })).toBeVisible();
@@ -84,6 +92,7 @@ test('directory filters each capability and combines matching results', async ({
   await expect(category).toHaveValue('all');
   await expect(free).not.toBeChecked();
   await expect(api).not.toBeChecked();
+  await expect(realTime).not.toBeChecked();
   await expect(search).toHaveValue('');
 });
 
