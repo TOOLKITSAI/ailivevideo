@@ -3,6 +3,7 @@ import ToolCard, { type DirectoryTool } from '../components/ToolCard.astro';
 import { CATEGORIES, CATEGORY_SLUGS } from '../data/categories';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getFeaturedTools, getPublishedComparisons, getPublishedGuides, getPublishedTools } from '../lib/content';
+import { websiteJsonLd } from '../lib/seo';
 
 const [publishedTools, markedFeaturedTools, comparisons, guides] = await Promise.all([
   getPublishedTools(),
@@ -31,6 +32,7 @@ const latestGuides = guides.sort((first, second) => second.data.updatedAt.getTim
   title="AI Live Video"
   description="Curated AI live video tools and practical guides."
   canonicalPath="/"
+  structuredData={[websiteJsonLd()]}
 >
   <section class="homepage-hero" aria-labelledby="homepage-title">
     <div class="container homepage-hero__inner">

@@ -1,6 +1,9 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import JsonLd from '../components/JsonLd.astro';
+import SeoHead from '../components/SeoHead.astro';
+import { breadcrumbJsonLd, canonicalUrl, type BreadcrumbItem } from '../lib/seo';
 import '../styles/global.css';
 
 interface Props {
@@ -8,21 +11,20 @@ interface Props {
   description: string;
   canonicalPath: string;
   noindex?: boolean;
+  structuredData?: unknown[];
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-const { title, description, canonicalPath, noindex = false } = Astro.props;
-const canonicalUrl = new URL(canonicalPath, Astro.site ?? 'https://ailivevideo.net').href;
+const { title, description, canonicalPath, noindex = false, structuredData = [], breadcrumbs = [] } = Astro.props;
+const pageCanonicalUrl = canonicalUrl(canonicalPath);
+const jsonLd = [...structuredData, ...(breadcrumbs.length > 0 ? [breadcrumbJsonLd(breadcrumbs)] : [])];
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
-    {noindex && <meta name="robots" content="noindex,follow" />}
-    <title>{title}</title>
+    <SeoHead title={title} description={description} canonicalUrl={pageCanonicalUrl} noindex={noindex} />
+    {jsonLd.map((value) => <JsonLd value={value} />)}
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>

@@ -3,12 +3,19 @@ import type { CollectionEntry } from 'astro:content';
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import BaseLayout from './BaseLayout.astro';
+import { articleJsonLd, canonicalUrl } from '../lib/seo';
 interface ArticleData { title: string; description: string; publishedAt: Date; updatedAt: Date; officialSources: string[]; }
 interface Props { article: ArticleData; canonicalPath: string; collectionLabel: string; collectionPath: string; relatedTools: CollectionEntry<'tools'>[]; Content: AstroComponentFactory; }
 const { article, canonicalPath, collectionLabel, collectionPath, relatedTools, Content } = Astro.props;
 function formatDate(date: Date): string { return new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(date); }
 ---
-<BaseLayout title={`${article.title} | AI Live Video`} description={article.description} canonicalPath={canonicalPath}>
+<BaseLayout
+  title={article.title + ' | AI Live Video'}
+  description={article.description}
+  canonicalPath={canonicalPath}
+  structuredData={[articleJsonLd({ ...article, canonicalUrl: canonicalUrl(canonicalPath) })]}
+  breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: collectionLabel, url: canonicalUrl(collectionPath) }, { name: article.title }]}
+>
   <article class="container article">
     <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: collectionLabel, href: collectionPath }, { label: article.title }]} />
     <header class="article__hero"><p class="eyebrow">{collectionLabel}</p><h1>{article.title}</h1><p class="article__description">{article.description}</p><p class="article__dates"><time datetime={article.publishedAt.toISOString()}>Published {formatDate(article.publishedAt)}</time> <time datetime={article.updatedAt.toISOString()}>Updated {formatDate(article.updatedAt)}</time></p></header>

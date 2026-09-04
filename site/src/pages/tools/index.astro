@@ -3,6 +3,7 @@ import DirectorySearch from '../../components/DirectorySearch.astro';
 import { CATEGORIES } from '../../data/categories';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedTools } from '../../lib/content';
+import { canonicalUrl, itemListJsonLd } from '../../lib/seo';
 
 const publishedTools = await getPublishedTools();
 const directoryTools = publishedTools.map((tool) => ({
@@ -22,6 +23,8 @@ const directoryTools = publishedTools.map((tool) => ({
   title="AI Live Video Tools"
   description="Browse editorially reviewed AI live video tools by category and capability."
   canonicalPath="/tools/"
+  structuredData={[itemListJsonLd('AI Live Video Tools', publishedTools.map((tool) => ({ name: tool.data.name, url: canonicalUrl('/tools/' + tool.id + '/') })))]}
+  breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: 'Tools' }]}
 >
   <div class="container">
     <DirectorySearch tools={directoryTools} />

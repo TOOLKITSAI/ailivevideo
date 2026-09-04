@@ -5,7 +5,7 @@ import ToolCard, { type DirectoryTool } from '../../components/ToolCard.astro';
 import { CATEGORIES } from '../../data/categories';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedTools } from '../../lib/content';
-import { serializeJsonForScript, softwareApplicationJsonLd } from '../../lib/seo';
+import { canonicalUrl, softwareApplicationJsonLd } from '../../lib/seo';
 
 interface Props {
   tool: CollectionEntry<'tools'>;
@@ -25,8 +25,7 @@ const alternatives = tool.data.alternatives
   .filter((entry): entry is CollectionEntry<'tools'> => Boolean(entry));
 const categoryNames = tool.data.categories.map((category) => CATEGORIES[category].name);
 const canonicalPath = `/tools/${tool.id}/`;
-const canonicalUrl = new URL(canonicalPath, Astro.site ?? 'https://ailivevideo.net').href;
-const jsonLd = serializeJsonForScript(softwareApplicationJsonLd(tool.data, canonicalUrl));
+const pageCanonicalUrl = canonicalUrl(canonicalPath);
 const lastVerified = tool.data.lastVerified.toISOString().slice(0, 10);
 
 function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
@@ -44,8 +43,13 @@ function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
 }
 ---
 
-<BaseLayout title={`${tool.data.name} — AI Live Video Tools`} description={tool.data.description} canonicalPath={canonicalPath}>
-  <script type="application/ld+json" is:inline set:html={jsonLd}></script>
+<BaseLayout
+  title={tool.data.name + ' — AI Live Video Tools'}
+  description={tool.data.description}
+  canonicalPath={canonicalPath}
+  structuredData={[softwareApplicationJsonLd(tool.data, pageCanonicalUrl)]}
+  breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: 'Tools', url: canonicalUrl('/tools/') }, { name: tool.data.name }]}
+>
   <div class="container tool-detail">
     <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools/' }, { label: tool.data.name }]} />
 

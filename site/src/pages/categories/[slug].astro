@@ -5,6 +5,7 @@ import ToolCard, { type DirectoryTool } from '../../components/ToolCard.astro';
 import { CATEGORIES, type CategorySlug } from '../../data/categories';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedComparisons, getPublishedGuides, getToolsByCategory } from '../../lib/content';
+import { canonicalUrl, itemListJsonLd } from '../../lib/seo';
 
 interface Props {
   category: CategorySlug;
@@ -43,7 +44,13 @@ function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
 }
 ---
 
-<BaseLayout title={`${categoryInfo.name} — AI Live Video Tools`} description={categoryInfo.description} canonicalPath={canonicalPath}>
+<BaseLayout
+  title={categoryInfo.name + ' — AI Live Video Tools'}
+  description={categoryInfo.description}
+  canonicalPath={canonicalPath}
+  structuredData={[itemListJsonLd(categoryInfo.name, tools.map((tool) => ({ name: tool.data.name, url: canonicalUrl('/tools/' + tool.id + '/') })))]}
+  breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: 'Tools', url: canonicalUrl('/tools/') }, { name: categoryInfo.name }]}
+>
   <div class="container category-page">
     <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools/' }, { label: categoryInfo.name }]} />
 

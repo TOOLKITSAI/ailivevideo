@@ -1,0 +1,5 @@
+# site/public/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://ailivevideo.net/sitemap-index.xml
