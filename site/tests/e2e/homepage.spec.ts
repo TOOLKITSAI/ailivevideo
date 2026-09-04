@@ -9,10 +9,29 @@ test('homepage exposes the primary navigation and landmarks', async ({ page }) =
   await expect(page.getByRole('contentinfo')).toBeVisible();
 });
 
+test('homepage follows the approved search-led hierarchy', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.getByRole('heading', { level: 1, name: 'Find the right AI live video tool' })).toBeVisible();
+  await expect(page.getByRole('searchbox', { name: 'Search AI live video tools' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Featured tools' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Learn about AI live video' })).toBeVisible();
+});
+
 test('site shell uses compact rows at the desktop breakpoint', async ({ page }) => {
   await page.setViewportSize({ width: 768, height: 900 });
   await page.goto('/');
 
   await expect(page.locator('.site-header__inner')).toHaveCSS('flex-direction', 'row');
   await expect(page.locator('.site-footer__inner')).toHaveCSS('flex-direction', 'row');
+});
+test('homepage has no horizontal overflow at the iPhone 13 width', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  const dimensions = await page.evaluate(() => ({
+    clientWidth: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 });
