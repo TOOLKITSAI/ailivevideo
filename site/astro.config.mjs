@@ -1,8 +1,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-const excludedPaths = new Set([
+export const excludedSitemapPaths = new Set([
+  '/about/',
   '/affiliate-disclosure/',
+  '/editorial-policy/',
   '/privacy/',
   '/terms/',
 ]);
@@ -12,6 +14,6 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   integrations: [
-    sitemap({ filter: (page) => !excludedPaths.has(new URL(page).pathname) }),
+    sitemap({ filter: (page) => !excludedSitemapPaths.has(new URL(page).pathname) }),
   ],
 });
