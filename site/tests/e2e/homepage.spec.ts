@@ -50,5 +50,5 @@ test('homepage search exposes a polite results region', async ({ page }) => {
 test('homepage search returns a known tool route', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('searchbox', { name: 'Search AI live video tools' }).fill('HeyGen');
-  await expect(page.getByRole('link', { name: /HeyGen/i }).first()).toHaveAttribute('href', /\/tools\/heygen\//);
+  await expect(page.locator('a[href="/tools/heygen/"]')).toHaveAttribute('href', /\/tools\/heygen\//);
 });

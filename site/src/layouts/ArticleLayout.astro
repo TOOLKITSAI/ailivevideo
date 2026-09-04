@@ -16,10 +16,10 @@ function formatDate(date: Date): string { return new Intl.DateTimeFormat('en', {
   pagefindContentType={pagefindContentType}
   pagefindCategories={pagefindCategories}
   structuredData={[articleJsonLd({ ...article, canonicalUrl: canonicalUrl(canonicalPath) })]}
-  breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: collectionLabel, url: canonicalUrl(collectionPath) }, { name: article.title }]}
+  breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: article.title }]}
 >
   <article class="container article">
-    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: collectionLabel, href: collectionPath }, { label: article.title }]} />
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: article.title }]} />
     <header class="article__hero"><p class="eyebrow">{collectionLabel}</p><h1>{article.title}</h1><p class="article__description">{article.description}</p><p class="article__dates"><time datetime={article.publishedAt.toISOString()}>Published {formatDate(article.publishedAt)}</time> <time datetime={article.updatedAt.toISOString()}>Updated {formatDate(article.updatedAt)}</time></p></header>
     <section class="article__body" aria-label="Article content"><Content /></section>
     <section aria-labelledby="sources-heading"><h2 id="sources-heading">Official sources</h2><ol>{article.officialSources.map((source, index) => <li><a href={source} target="_blank" rel="noreferrer">Source {index + 1}</a></li>)}</ol></section>

@@ -54,8 +54,9 @@ function isSoftwareApplication(value) {
 
 function targetExists(root, pathname) {
   const normalized = path.posix.normalize(`/${pathname}`).replace(/^\/+/, '');
-  if (!normalized || normalized === '.') return true;
-  const candidates = normalized.endsWith('.html')
+  const candidates = (!normalized || normalized === '.')
+    ? ['index.html']
+    : normalized.endsWith('.html')
     ? [normalized]
     : [path.posix.join(normalized, 'index.html'), `${normalized}.html`];
   return candidates.some((candidate) => {
@@ -91,9 +92,8 @@ export async function inspectBuiltSite(root, options = { enforceReleaseCounts: f
       if (descriptions.length !== 1) errors.push(`${page.relative}: ${descriptions.length ? 'duplicate meta description' : 'missing meta description'}`);
       else if (!descriptions[0].content?.trim()) errors.push(`${page.relative}: empty meta description`);
     }
-    const placeholder = visibleText(page.html).match(PLACEHOLDER)?.[0];
-    if (placeholder) errors.push(`${page.relative}: unfinished placeholder ${placeholder}`);
-    for (const href of internalLinks(page.html)) {
+    const placeholders = [...page.html.matchAll(new RegExp(PLACEHOLDER.source, 'gi'))].map((match) => match[0]);
+    for (const placeholder of placeholders) errors.push(`${page.relative}: unfinished placeholder ${placeholder}`);    for (const href of internalLinks(page.html)) {
       let pathname;
       try { pathname = decodeURIComponent(new URL(href, 'https://ailivevideo.net').pathname); } catch { errors.push(`${page.relative}: invalid internal link ${href}`); continue; }
       if (!ASSET_EXTENSION.test(pathname) && !targetExists(root, pathname)) errors.push(`${page.relative}: broken internal link ${href}`);

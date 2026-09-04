@@ -1,5 +1,10 @@
 import { expect, test } from '@playwright/test';
 
+test.beforeEach(({ page }) => {
+  page.on('pageerror', (error) => { throw error; });
+  page.on('console', (message) => { if (message.type() === 'error') throw new Error(message.text()); });
+});
+
 const trustPages = [
   { path: '/about/', finalHeading: 'How to read the site', finalText: 'Read our editorial policy' },
   { path: '/editorial-policy/', finalHeading: 'Corrections', finalText: 'We correct material factual errors' },

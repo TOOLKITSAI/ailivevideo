@@ -59,3 +59,23 @@ it('accepts an existing root-relative HTML route after query and hash removal', 
 
   await expect(inspectBuiltSite(root, { enforceReleaseCounts: false })).resolves.toEqual([]);
 });
+it('reports a root link when the built root index is absent', async () => {
+  const root = await fixture({
+    'tools/only/index.html': page({ canonical: 'https://ailivevideo.net/tools/only/', body: '<a href="/">Home</a>' }),
+  });
+
+  await expect(inspectBuiltSite(root, { enforceReleaseCounts: false }))
+    .resolves.toContain('tools/only/index.html: broken internal link /');
+});
+
+it('reports placeholders found in complete HTML, including attributes and comments', async () => {
+  const root = await fixture({
+    'index.html': page({ body: '<!-- [citation: pending] --><div data-note="TODO">Ready</div><a href="/ok/" title="lorem ipsum">OK</a>' }),
+    'ok/index.html': page({ canonical: 'https://ailivevideo.net/ok/' }),
+  });
+
+  const errors = await inspectBuiltSite(root, { enforceReleaseCounts: false });
+  expect(errors).toContain('index.html: unfinished placeholder [citation: pending]');
+  expect(errors).toContain('index.html: unfinished placeholder TODO');
+  expect(errors).toContain('index.html: unfinished placeholder lorem ipsum');
+});

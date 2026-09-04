@@ -5,29 +5,60 @@ test.beforeEach(({ page }) => {
   page.on('console', (message) => { if (message.type() === 'error') throw new Error(message.text()); });
 });
 
+const visibleCards = (page: import('@playwright/test').Page) => page.locator('[data-tool-card]:not([hidden])');
+
 test('directory controls are keyboard accessible', async ({ page }) => {
   await page.goto('/tools/');
-  const search = page.getByRole('searchbox', { name: 'Search tools' });
-  await search.focus();
-  await expect(search).toBeFocused();
-  await expect(page.getByRole('combobox', { name: 'Category' })).toBeVisible();
-  await expect(page.getByText(/tools found/i)).toBeVisible();
-});
-test('shows the prescribed empty state after filters exclude published tools', async ({ page }) => {
-  await page.goto('/tools/');
-  await page.getByRole('searchbox', { name: 'Search tools' }).fill('zzzz-not-a-tool');
-  await expect(page.getByRole('heading', { name: 'No tools match these filters yet' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Clear filters' })).toBeVisible();
-});
-test('directory filters, clears, and shows the no-results state', async ({ page }) => {
-  await page.goto('/tools/');
-  const count = page.locator('[data-result-count]');
-  await page.getByRole('combobox', { name: 'Category' }).selectOption('ai-avatars');
-  await expect(count).not.toHaveText('30');
+  await page.keyboard.press('Tab');
+  const skip = page.getByRole('link', { name: 'Skip to main content' });
+  await expect(skip).toBeFocused();
+  await expect(skip).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)');
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('main')).toBeFocused();
+  await page.getByRole('searchbox', { name: 'Search tools' }).focus();
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('combobox', { name: 'Category' })).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('checkbox', { name: 'Free or trial access' })).toBeFocused();
   await page.getByRole('checkbox', { name: 'Free or trial access' }).check();
+  await expect(visibleCards(page).first()).toBeVisible();
+  await visibleCards(page).first().getByRole('link', { name: /View .* details/ }).focus();
+  await expect(visibleCards(page).first().getByRole('link', { name: /View .* details/ })).toBeFocused();
+});
+
+test('directory filters each capability and combines matching results', async ({ page }) => {
+  await page.goto('/tools/');
+  const data = await page.locator('#directory-tools').textContent();
+  const tools = JSON.parse(data ?? '[]') as Array<{ categorySlugs: string[]; freeAccessStatus: string; apiAvailable: string }>;
+  const expectCount = async (predicate: (tool: typeof tools[number]) => boolean) => {
+    await expect(page.locator('[data-result-count]')).toHaveText(String(tools.filter(predicate).length));
+    await expect(visibleCards(page)).toHaveCount(tools.filter(predicate).length);
+  };
+  await page.getByRole('combobox', { name: 'Category' }).selectOption('ai-avatars');
+  await expectCount((tool) => tool.categorySlugs.includes('ai-avatars'));
+  await page.getByRole('button', { name: 'Clear filters' }).click();
+  await page.getByRole('checkbox', { name: 'Free or trial access' }).check();
+  await expectCount((tool) => tool.freeAccessStatus === 'free' || tool.freeAccessStatus === 'trial');
+  await page.getByRole('button', { name: 'Clear filters' }).click();
   await page.getByRole('checkbox', { name: 'API available' }).check();
+  await expectCount((tool) => tool.apiAvailable === 'yes');
+  await page.getByRole('combobox', { name: 'Category' }).selectOption('ai-avatars');
+  await page.getByRole('checkbox', { name: 'Free or trial access' }).check();
+  await expectCount((tool) => tool.categorySlugs.includes('ai-avatars') && (tool.freeAccessStatus === 'free' || tool.freeAccessStatus === 'trial') && tool.apiAvailable === 'yes');
+  await page.getByRole('button', { name: 'Clear filters' }).click();
+  await expect(page.locator('[data-result-count]')).toHaveText('30');
+});
+
+test('directory presents the no-results state separately', async ({ page }) => {
+  await page.goto('/tools/');
   await page.getByRole('searchbox', { name: 'Search tools' }).fill('zzzz-not-a-tool');
   await expect(page.getByRole('heading', { name: 'No tools match these filters yet' })).toBeVisible();
-  await page.getByRole('button', { name: 'Clear filters' }).click();
-  await expect(count).toHaveText('30');
+  await expect(visibleCards(page)).toHaveCount(0);
+});
+
+test('tool cards render the text-mark fallback when no logo asset is supplied', async ({ page }) => {
+  await page.goto('/tools/');
+  const heygen = page.locator('[data-tool-slug="heygen"]');
+  await expect(heygen.locator('.tool-card__mark')).toHaveText('H');
+  await expect(heygen.locator('img')).toHaveCount(0);
 });
