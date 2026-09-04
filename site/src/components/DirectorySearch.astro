@@ -1,0 +1,116 @@
+---
+import ToolCard, { type DirectoryTool } from './ToolCard.astro';
+import { CATEGORIES, CATEGORY_SLUGS } from '../data/categories';
+
+interface Props {
+  tools: DirectoryTool[];
+}
+
+const { tools } = Astro.props;
+---
+
+<section class="directory-search" aria-labelledby="directory-search-title">
+  <div class="directory-search__intro">
+    <p class="eyebrow">Tool directory</p>
+    <h1 id="directory-search-title">Find an AI live video tool</h1>
+    <p>Browse a growing, editorially reviewed directory. More tool batches are on the way.</p>
+  </div>
+
+  <form class="directory-search__controls" data-directory-controls>
+    <div>
+      <label for="tool-search">Search tools</label>
+      <input id="tool-search" name="query" type="search" placeholder="Search by name" autocomplete="off" />
+    </div>
+    <div>
+      <label for="tool-category">Category</label>
+      <select id="tool-category" name="category">
+        <option value="all">All categories</option>
+        {CATEGORY_SLUGS.map((slug) => <option value={slug}>{CATEGORIES[slug].name}</option>)}
+      </select>
+    </div>
+    <fieldset>
+      <legend>Capabilities</legend>
+      <label><input name="freeAccess" type="checkbox" /> Free or trial access</label>
+      <label><input name="api" type="checkbox" /> API available</label>
+      <label><input name="realTime" type="checkbox" /> Real-time capable</label>
+    </fieldset>
+  </form>
+
+  <p class="directory-search__count" aria-live="polite"><span data-result-count>{tools.length}</span> tools found</p>
+
+  <div class="tool-grid" data-tool-grid>
+    {tools.map((tool) => <ToolCard tool={tool} />)}
+  </div>
+
+  <div class="directory-search__empty" data-empty-state hidden>
+    <h2>No tools match these filters yet</h2>
+    <p>Clear a filter or explore a category while new editorial batches are published.</p>
+    <button class="button" type="button" data-clear-filters>Clear filters</button>
+    <ul>
+      {CATEGORY_SLUGS.map((slug) => <li><a href={`/categories/${slug}/`}>{CATEGORIES[slug].name}</a></li>)}
+    </ul>
+  </div>
+</section>
+
+<script id="directory-tools" type="application/json" set:html={JSON.stringify(tools)}></script>
+
+<script>
+  import { filterTools } from '../lib/tool-filters';
+
+  const tools = JSON.parse(document.querySelector('#directory-tools')?.textContent ?? '[]');
+
+  const form = document.querySelector<HTMLFormElement>('[data-directory-controls]');
+  const count = document.querySelector<HTMLElement>('[data-result-count]');
+  const emptyState = document.querySelector<HTMLElement>('[data-empty-state]');
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-tool-card]')];
+  const clearFilters = document.querySelector<HTMLButtonElement>('[data-clear-filters]');
+
+  if (!form || !count || !emptyState || !clearFilters) {
+    throw new Error('Directory controls are missing from the page.');
+  }
+
+  const readFilters = () => {
+    const controls = new FormData(form);
+    return {
+      query: String(controls.get('query') ?? ''),
+      category: String(controls.get('category') ?? 'all'),
+      freeAccess: controls.has('freeAccess'),
+      api: controls.has('api'),
+      realTime: controls.has('realTime'),
+    };
+  };
+
+  const updateResults = () => {
+    const matchingTools = filterTools(tools, readFilters());
+    const matchingSlugs = new Set(matchingTools.map((tool) => tool.slug));
+    cards.forEach((card) => {
+      card.hidden = !matchingSlugs.has(card.dataset.toolSlug ?? '');
+    });
+    count.textContent = String(matchingTools.length);
+    emptyState.hidden = matchingTools.length > 0;
+  };
+
+  form.addEventListener('input', updateResults);
+  form.addEventListener('change', updateResults);
+  form.addEventListener('submit', (event) => event.preventDefault());
+  clearFilters.addEventListener('click', () => {
+    form.reset();
+    updateResults();
+  });
+</script>
+
+<style>
+  .directory-search { padding-block: clamp(2.5rem, 7vw, 5rem); }
+  .directory-search__intro { max-width: 44rem; }
+  .directory-search__intro > p:last-child { color: var(--color-muted); font-size: 1.125rem; }
+  .directory-search__controls { display: grid; gap: 1rem; padding: 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+  .directory-search__controls > div, fieldset { display: grid; gap: 0.4rem; }
+  .directory-search__controls label, legend { font-weight: 700; }
+  .directory-search__controls input[type='search'], .directory-search__controls select { width: 100%; min-height: 2.75rem; padding: 0.5rem 0.625rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-bg); color: var(--color-text); font: inherit; }
+  fieldset { border: 0; padding: 0; }
+  fieldset label { font-weight: 400; }
+  .directory-search__count { margin-block: 1.25rem; color: var(--color-muted); font-weight: 700; }
+  .directory-search__empty { margin-top: 1.5rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+  .directory-search__empty ul { padding-left: 1.25rem; }
+  @media (min-width: 48rem) { .directory-search__controls { grid-template-columns: 2fr 1fr 2fr; align-items: end; } }
+</style>

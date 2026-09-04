@@ -1,0 +1,29 @@
+---
+import DirectorySearch from '../../components/DirectorySearch.astro';
+import { CATEGORIES } from '../../data/categories';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedTools } from '../../lib/content';
+
+const publishedTools = await getPublishedTools();
+const directoryTools = publishedTools.map((tool) => ({
+  slug: tool.id,
+  name: tool.data.name,
+  categorySlugs: tool.data.categories,
+  categoryLabel: CATEGORIES[tool.data.categories[0]].name,
+  oneLineVerdict: tool.data.oneLineVerdict,
+  bestFor: tool.data.bestFor,
+  freeAccessStatus: tool.data.freeAccessStatus,
+  apiAvailable: tool.data.apiAvailable,
+  realTimeCapability: tool.data.realTimeCapability,
+}));
+---
+
+<BaseLayout
+  title="AI Live Video Tools"
+  description="Browse editorially reviewed AI live video tools by category and capability."
+  canonicalPath="/tools/"
+>
+  <div class="container">
+    <DirectorySearch tools={directoryTools} />
+  </div>
+</BaseLayout>

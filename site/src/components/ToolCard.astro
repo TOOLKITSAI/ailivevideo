@@ -1,0 +1,62 @@
+---
+import type { ToolDirectoryItem } from '../lib/tool-filters';
+
+export interface DirectoryTool extends ToolDirectoryItem {
+  oneLineVerdict: string;
+  bestFor: string;
+  categoryLabel: string;
+}
+
+interface Props {
+  tool: DirectoryTool;
+}
+
+const { tool } = Astro.props;
+const initialMark = tool.name.trim().charAt(0).toLocaleUpperCase('en') || '?';
+---
+
+<article
+  class="tool-card"
+  data-tool-card
+  data-tool-slug={tool.slug}
+>
+  <div class="tool-card__mark" aria-hidden="true">{initialMark}</div>
+  <div class="tool-card__body">
+    <p class="tool-card__category">{tool.categoryLabel}</p>
+    <h2>{tool.name}</h2>
+    <p class="tool-card__verdict">{tool.oneLineVerdict}</p>
+    <p class="tool-card__best-for"><strong>Best for:</strong> {tool.bestFor}</p>
+    <a href={`/tools/${tool.slug}/`} aria-label={`View ${tool.name} details`}>View details</a>
+  </div>
+</article>
+
+<style>
+  .tool-card {
+    display: flex;
+    gap: 1rem;
+    min-height: 100%;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .tool-card__mark {
+    display: grid;
+    flex: 0 0 auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .tool-card__body { min-width: 0; }
+  .tool-card__category { margin-bottom: 0.3rem; color: var(--color-accent-strong); font-size: 0.8125rem; font-weight: 750; }
+  .tool-card h2 { margin-bottom: 0.5rem; font-size: 1.25rem; }
+  .tool-card__verdict { margin-bottom: 0.75rem; }
+  .tool-card__best-for { color: var(--color-muted); }
+</style>
