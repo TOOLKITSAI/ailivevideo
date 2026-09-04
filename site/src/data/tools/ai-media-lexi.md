@@ -8,13 +8,13 @@ bestFor: Broadcast and event teams needing translated caption channels from a li
 capabilities: [Live caption translation, Translated subtitle channels, LEXI Text integration, iCap delivery network, Bilingual transcription modes, Live display options]
 realTimeDefinition: "Native for translated text: LEXI Translate translates caption output into subtitle channels during live content; reviewed evidence does not establish live translated audio."
 pricingModel: Contact-sales product; no public numeric LEXI Translate pricing found in reviewed official sources.
-freeAccessStatus: unknown
+freeAccessStatus: trial
 apiAvailable: unknown
 realTimeCapability: native
 pros: [Clear caption-to-subtitle scope, Up to 120 translated languages stated, Fits caption delivery infrastructure]
 cons: [No verified live audio output, No public numeric price card, Public API status unestablished]
 alternatives: [syncwords, wordly, interprefy, kudo]
-officialSources: [https://www.ai-media.tv/our-products/lexi-ai-powered-captioning-tool-kit/lexi-translate/, https://customersupport.ai-media.tv/hc/en-us/articles/29781964990484-What-languages-does-LEXI-Translate-Support, https://www.ai-media.tv/our-products/]
+officialSources: [https://www.ai-media.tv/our-products/lexi-ai-powered-captioning-tool-kit/lexi-translate/, https://customersupport.ai-media.tv/hc/en-us/articles/29781964990484-What-languages-does-LEXI-Translate-Support]
 lastVerified: 2026-09-04
 editorialStatus: published
 featured: false
@@ -38,7 +38,6 @@ The broader product site references the iCap Cloud Network for caption and subti
 
 This product fits translated-subtitle requirements: a broadcaster may need language channels for a live feed; an event may need translated text on a display or viewer; an accessibility group may need a controlled caption workflow. Prepare terminology, names, speaker languages, bilingual segments, reading speed, and the behavior when speakers interrupt. Test the consumer platform’s handling of secondary caption channels. A translated caption track that exists in a service is not useful if the video platform or venue display cannot surface it.
 
-Reviewed sources do not establish live interpreted or translated audio, live dubbed speech, a post-production dubbing workflow, or a public developer API for LEXI Translate. Those are unknown or unsupported rather than extrapolated from separate voice-related entries in a language matrix. Pages invite sales contact but do not publish a numeric price card or durable free plan, so pricing is contact-sales and free access unknown.
+Reviewed sources do not establish live interpreted or translated audio, live dubbed speech, a post-production dubbing workflow, or a public developer API for LEXI Translate. Those are unknown or unsupported rather than extrapolated from separate voice-related entries in a language matrix. The official LEXI Translate page offers a 10-hour free trial. It still does not publish a numeric subscription price, so ongoing pricing remains contact-sales and must be confirmed with AI-Media.
 
 Choose LEXI Translate for a text-first live caption translation workflow. Choose Wordly, Interprefy, or KUDO when audience-facing live translated audio is required. Choose SyncWords when a production needs separately documented live captions, subtitles, or AI voice translation. Keeping this boundary visible avoids calling translated captions “live dubbing.”
-

@@ -14,7 +14,7 @@ realTimeCapability: native
 pros: [Audio and text output, In-person and virtual support, Documented API and RTMP options]
 cons: [No public free allowance found, Price varies by hours, Post-event dubbing is not live]
 alternatives: [interprefy, kudo, syncwords, ai-media-lexi]
-officialSources: [https://www.wordly.ai/, https://www.wordly.ai/pricing, https://www.wordly.ai/translator-languages, https://dev-help.wordly.ai/develop/]
+officialSources: [https://www.wordly.ai/, https://www.wordly.ai/pricing, https://www.wordly.ai/translator-languages]
 lastVerified: 2026-09-04
 editorialStatus: published
 featured: false
@@ -39,4 +39,3 @@ Wordly documents a developer center with REST APIs, iFrame delivery, and RTMP st
 Use Wordly for a recurring conference, town hall, training series, or meeting program where attendees need live text and AI-translated audio without scheduling human interpreters. It is less suitable when the requirement is human interpretation for high-stakes nuance, a conversational multi-party audio experience, or one finished video needing a reviewed localized soundtrack.
 
 Pricing is visible but not a simple per-language rate: the current page says packages start at about USD 1,500 and are based on purchased hours, with a 10-hour minimum in its FAQ. No durable free plan or trial allowance appears on reviewed sources, so free access is unknown. Before committing, test noisy audio, overlaps, terminology, language pairs, join flow, caption display, audio delay, and a recovery plan for lost network or program audio.
-

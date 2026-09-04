@@ -14,7 +14,7 @@ realTimeCapability: native
 pros: [AI and human coverage options, Audio plus captions, Meeting and event integrations]
 cons: [AI presentation mode is one-way, Pricing is sales-led, No public API documentation found]
 alternatives: [wordly, interprefy, syncwords, ai-media-lexi]
-officialSources: [https://kudo.ai/, https://kudo.ai/solutions/kudo-ai-speech-translator/, https://kudo.ai/solutions/live-events-speech-translation/, https://kudo.ai/about/partners-resellers-program/]
+officialSources: [https://kudo.ai/, https://kudo.ai/pricing-plans-and-features/, https://kudo.ai/solutions/kudo-ai-speech-translator/]
 lastVerified: 2026-09-04
 editorialStatus: published
 featured: false
@@ -39,5 +39,3 @@ KUDO lists custom glossary upload, custom voices by gender, and automatic langua
 Public product pages do not show a general numeric price table. KUDO’s reseller material refers to consumption-based pricing, and a government page describes an annual license per room, but neither supports a universal end-user quote. Pricing is sales-led and free access is unknown. Reviewed official pages show widgets and integrations but do not establish a public developer API, so API availability is unknown rather than inferred.
 
 Choose KUDO when a meeting or event requires live AI translated audio and captions, with a separate route to human interpreting. It fits presentation-style communication especially well in the documented AI mode. It is not evidenced as a post-production dubbing service, and captions-only conversational mode should never be advertised as translated audio. Compare Wordly and Interprefy for adjacent event-language paths, and SyncWords or AI-Media LEXI for caption- and broadcast-centric outputs. Document who owns speaker preparation, technical rehearsal, attendee instructions, and live escalation before doors open.
-
-

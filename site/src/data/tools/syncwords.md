@@ -14,7 +14,7 @@ realTimeCapability: native
 pros: [Text and voice live outputs, Broadcast protocol options, Documented live API]
 cons: [Each live output counts toward usage, Voice translation is not proof of a permanent dub, Free live allowance is unstated]
 alternatives: [ai-media-lexi, wordly, interprefy, kudo]
-officialSources: [https://www.syncwords.com/, https://www.syncwords.com/products/live-translations-captions-embeddable-player, https://help.syncwords.com/live/how-does-billing-work-in-syncwords, https://www.syncwords.com/pricing]
+officialSources: [https://www.syncwords.com/, https://help.syncwords.com/live/how-does-billing-work-in-syncwords, https://www.syncwords.com/products/live-translations-captions-embeddable-player]
 lastVerified: 2026-09-04
 editorialStatus: published
 featured: false
@@ -41,4 +41,3 @@ SyncWords documents live billing as active connection time plus generated output
 The company also sells pre-recorded captioning, translated subtitles, and automated file dubbing. These are useful localization workflows, but do not prove a completed file can be turned around in real time. Separate a live event from its after-event archive, review, burn-in, and dubbed-file needs.
 
 Choose SyncWords when a media team needs live captions, translated subtitles, and AI voice translation with protocol and API options. Choose AI-Media LEXI for a caption-translation-first workflow, Wordly or KUDO for meeting attendees, or Interprefy for managed human/AI services. Specify whether success means readable text, translated listening, a live voice track, or a reviewed finished dub.
-
