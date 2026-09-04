@@ -7,7 +7,7 @@ oneLineVerdict: A packaged digital-person platform with interactive-minute plans
 bestFor: Organizations building interactive assistants with configurable behavior, reporting, and live deployment
 capabilities: [Interactive conversations, Live deployment, Agent templates, Behavior configuration, Custom LLM integration, Web SDK and Skills API]
 realTimeDefinition: Native for Studio plans listing interactive conversations and live deployment; no numerical public latency SLA was found.
-pricingModel: Studio publishes a free exploration tier, paid monthly plans with interactive minutes, and a seven-day trial.
+pricingModel: Studio publishes a free exploration tier and paid plans with interactive minutes; its official page conflicts on trial length, so confirm it directly.
 freeAccessStatus: trial
 apiAvailable: yes
 realTimeCapability: native
@@ -28,7 +28,7 @@ The company offers no-code and developer routes. Its developer site documents a 
 
 ## Read the tier boundaries
 
-Studio's free tier supports exploration of assistant creation, templates, gestures, behavior, and conversational integration, but its pricing page lists zero interactive-conversation minutes. It should not be called a free live-agent allowance. The same page advertises a seven-day trial on paid tiers. Basic lists 40 interactive minutes and one live assistant, Plus lists 350 minutes and up to three assistants, and Pro lists 10,000 minutes and six assistants; enterprise terms go through sales. Confirm trial conditions and plan access in the portal before relying on an allowance.
+Studio's free tier supports exploration of assistant creation, templates, gestures, behavior, and conversational integration, but its pricing page lists zero interactive-conversation minutes. It should not be called a free live-agent allowance. The same official page is internally inconsistent: plan cards advertise a seven-day trial, while its subscription FAQ says 14 days. Confirm the current trial length directly with Soul Machines before relying on either statement. Basic lists 40 interactive minutes and one live assistant, Plus lists 350 minutes and up to three assistants, and Pro lists 10,000 minutes and six assistants; enterprise terms go through sales. Confirm trial conditions and plan access in the portal before relying on an allowance.
 
 Interactive minutes and live deployment support native real time, but they do not imply a latency guarantee. Public material uses real-time engagement language, while reviewed sources do not publish a numerical universal response-time SLA. Measure the full turn: recognition, reasoning, connected skills, speech, animation, and delivery. Natural gestures can make a delay feel different, but visual quality is not a performance commitment.
 

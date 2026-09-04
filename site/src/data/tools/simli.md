@@ -45,4 +45,5 @@ Choose Simli when a fast visual response layer must plug into an architecture yo
 
 Before committing to a composed architecture, map where transcript data, audio, video frames, and account identifiers travel. Make a support matrix for each provider, including rate limits and outage behavior. The evaluation succeeds only when the visual stream, voice loop, and business logic fail safely together.
 
-Review it.
+
+A production checklist should name the owner for this review.
