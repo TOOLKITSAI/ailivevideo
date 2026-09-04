@@ -5,14 +5,16 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import BaseLayout from './BaseLayout.astro';
 import { articleJsonLd, canonicalUrl } from '../lib/seo';
 interface ArticleData { title: string; description: string; publishedAt: Date; updatedAt: Date; officialSources: string[]; }
-interface Props { article: ArticleData; canonicalPath: string; collectionLabel: string; collectionPath: string; relatedTools: CollectionEntry<'tools'>[]; Content: AstroComponentFactory; }
-const { article, canonicalPath, collectionLabel, collectionPath, relatedTools, Content } = Astro.props;
+interface Props { article: ArticleData; canonicalPath: string; collectionLabel: string; collectionPath: string; relatedTools: CollectionEntry<'tools'>[]; Content: AstroComponentFactory; pagefindContentType?: string; pagefindCategories?: string[]; }
+const { article, canonicalPath, collectionLabel, collectionPath, relatedTools, Content, pagefindContentType, pagefindCategories = [] } = Astro.props;
 function formatDate(date: Date): string { return new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(date); }
 ---
 <BaseLayout
   title={article.title + ' | AI Live Video'}
   description={article.description}
   canonicalPath={canonicalPath}
+  pagefindContentType={pagefindContentType}
+  pagefindCategories={pagefindCategories}
   structuredData={[articleJsonLd({ ...article, canonicalUrl: canonicalUrl(canonicalPath) })]}
   breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: collectionLabel, url: canonicalUrl(collectionPath) }, { name: article.title }]}
 >

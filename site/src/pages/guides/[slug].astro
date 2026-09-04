@@ -9,6 +9,7 @@ const { Content } = await render(article);
 const publishedTools = await getPublishedTools();
 const relatedToolSlugs = new Set(article.data.relatedTools);
 const relatedTools = publishedTools.filter((tool) => relatedToolSlugs.has(tool.id));
+const pagefindCategories = ('categories' in article.data && Array.isArray(article.data.categories)) ? article.data.categories.filter((category): category is string => typeof category === 'string') : [];
 ---
-<ArticleLayout article={article.data} canonicalPath={`/guides/${article.id}/`} collectionLabel="Guides" collectionPath="/guides/" relatedTools={relatedTools} Content={Content} />
+<ArticleLayout article={article.data} canonicalPath={`/guides/${article.id}/`} collectionLabel="Guides" collectionPath="/guides/" relatedTools={relatedTools} Content={Content} pagefindContentType="guide" pagefindCategories={pagefindCategories} />
 

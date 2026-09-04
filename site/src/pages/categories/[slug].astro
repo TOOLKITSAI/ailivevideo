@@ -48,6 +48,8 @@ function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
   title={categoryInfo.name + ' — AI Live Video Tools'}
   description={categoryInfo.description}
   canonicalPath={canonicalPath}
+  pagefindContentType="category"
+  pagefindCategories={[category]}
   structuredData={[itemListJsonLd(categoryInfo.name, tools.map((tool) => ({ name: tool.data.name, url: canonicalUrl('/tools/' + tool.id + '/') })))]}
   breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: 'Tools', url: canonicalUrl('/tools/') }, { name: categoryInfo.name }]}
 >
