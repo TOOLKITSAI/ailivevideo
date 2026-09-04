@@ -80,7 +80,7 @@ function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
     {relatedComparisons.length > 0 && (
       <section aria-labelledby="comparisons-heading">
         <h2 id="comparisons-heading">Related comparisons</h2>
-        <ul>{relatedComparisons.map((comparison) => <li><a href={`/comparisons/${comparison.id}/`}>{comparison.data.title}</a></li>)}</ul>
+        <ul>{relatedComparisons.map((comparison) => <li><a href={`/compare/${comparison.id}/`}>{comparison.data.title}</a></li>)}</ul>
       </section>
     )}
 

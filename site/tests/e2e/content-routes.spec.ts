@@ -1,5 +1,10 @@
 import { expect, test } from '@playwright/test';
 
+test.beforeEach(({ page }) => {
+  page.on('pageerror', (error) => { throw error; });
+  page.on('console', (message) => { if (message.type() === 'error') throw new Error(message.text()); });
+});
+
 test('all six category routes render unique headings', async ({ page }) => {
   const paths = [
     '/categories/ai-avatars/',
@@ -31,4 +36,11 @@ test('trust and legal pages are available', async ({ page }) => {
   await expect(page.getByRole('main')).toContainText(/corrections/i);
   await page.goto('/affiliate-disclosure/');
   await expect(page.getByRole('main')).toContainText(/do not determine our editorial conclusions/i);
+});
+
+test('representative tool, category, comparison, and guide routes render', async ({ page }) => {
+  for (const route of ['/tools/heygen/', '/categories/ai-avatars/', '/compare/heygen-vs-synthesia/', '/guides/what-is-ai-live-video/']) {
+    expect((await page.goto(route))?.status()).toBe(200);
+    await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible();
+  }
 });

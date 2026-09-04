@@ -1,5 +1,10 @@
 import { expect, test } from '@playwright/test';
 
+test.beforeEach(({ page }) => {
+  page.on('pageerror', (error) => { throw error; });
+  page.on('console', (message) => { if (message.type() === 'error') throw new Error(message.text()); });
+});
+
 test('homepage exposes the primary navigation and landmarks', async ({ page }) => {
   await page.goto('/');
 
@@ -40,4 +45,10 @@ test('homepage search exposes a polite results region', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('[aria-live="polite"][data-search-results]')).toHaveCount(1);
+});
+
+test('homepage search returns a known tool route', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('searchbox', { name: 'Search AI live video tools' }).fill('HeyGen');
+  await expect(page.getByRole('link', { name: /HeyGen/i }).first()).toHaveAttribute('href', /\/tools\/heygen\//);
 });

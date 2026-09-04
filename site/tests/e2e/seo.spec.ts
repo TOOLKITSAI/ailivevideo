@@ -1,5 +1,10 @@
 import { expect, test } from '@playwright/test';
 
+test.beforeEach(({ page }) => {
+  page.on('pageerror', (error) => { throw error; });
+  page.on('console', (message) => { if (message.type() === 'error') throw new Error(message.text()); });
+});
+
 test('homepage has canonical and website structured data', async ({ page }) => {
   await page.goto('/');
 
