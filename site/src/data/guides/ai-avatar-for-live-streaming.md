@@ -3,7 +3,7 @@ title: "AI Avatar for Live Streaming: how to choose the right architecture"
 description: "Choose an AI avatar for live streaming by separating rendered video from WebRTC conversation, testing response latency, and governing identity."
 publishedAt: 2026-09-05
 updatedAt: 2026-09-05
-officialSources: [https://help.heygen.com/en/articles/12758516-introducing-liveavatar, https://docs.tavus.io/sections/conversational-video-interface/conversation/overview, https://anam.ai/docs/introduction/overview, https://docs.simli.com/api-reference/simli-auto]
+officialSources: [https://help.heygen.com/en/articles/12758516-introducing-liveavatar, https://docs.tavus.io/sections/conversational-video-interface/conversation/overview, https://docs.d-id.com/docs/quickstart, https://anam.ai/docs/introduction/overview, https://docs.simli.com/api-reference/simli-auto, https://developers.restream.io/studio/]
 editorialStatus: published
 relatedTools: [heygen, tavus, anam, simli, d-id, restream]
 ---

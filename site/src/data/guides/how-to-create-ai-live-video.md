@@ -3,7 +3,7 @@ title: "How to Create AI Live Video: A production workflow"
 description: "Plan and launch an AI live-video workflow with the right latency target, tool boundaries, integration design, safety checks, and measurement."
 publishedAt: 2026-09-05
 updatedAt: 2026-09-05
-officialSources: [https://docs.tavus.io/sections/conversational-video-interface/conversation/overview, https://docs.simli.com/api-reference/simli-auto, https://developers.restream.io/studio/, https://www.wordly.ai/, https://docs.firework.com/firework-for-developers/web/integration-guide/events/shopping-events]
+officialSources: [https://docs.tavus.io/sections/conversational-video-interface/conversation/overview, https://docs.simli.com/api-reference/simli-auto, https://developers.restream.io/studio/, https://obsproject.com/kb/obs-studio-overview, https://www.wordly.ai/, https://docs.firework.com/firework-for-developers/web/integration-guide/events/shopping-events]
 editorialStatus: published
 relatedTools: [tavus, simli, restream, wordly, firework, obs-studio]
 ---

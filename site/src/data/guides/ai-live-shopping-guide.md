@@ -3,7 +3,7 @@ title: "AI Live Shopping Guide: architecture, operations, and measurement"
 description: "Build AI live shopping with the correct player, catalog, checkout, AI-assistance, host-operations, compliance, and measurement boundaries."
 publishedAt: 2026-09-05
 updatedAt: 2026-09-05
-officialSources: [https://docs.firework.com/firework-for-developers/web/integration-guide/events/shopping-events, https://firework.com/blog/generative-ai-launch-video-commerce, https://bambuser.com/social-commerce, https://bambuser.com/agentic-commerce, https://help.commentsold.com/hc/en-us/articles/25259753443220-Create-Product-Clips-with-AI-ClipHero]
+officialSources: [https://docs.firework.com/firework-for-developers/web/integration-guide/events/shopping-events, https://firework.com/blog/generative-ai-launch-video-commerce, https://bambuser.com/social-commerce, https://bambuser.com/agentic-commerce, https://help.commentsold.com/hc/en-us/articles/25259753443220-Create-Product-Clips-with-AI-ClipHero, https://www.buywith.com/article/maximize-your-live-shopping-impact-with-buywiths-powerful-api-suite/, https://videowise.com/comparison/videowise-vs-sprii, https://streamyard.com/multistreaming]
 editorialStatus: published
 relatedTools: [firework, bambuser, commentsold, buywith, videowise, streamyard]
 ---
