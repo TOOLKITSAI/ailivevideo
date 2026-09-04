@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { canonicalUrl } from '../lib/seo';
 ---
 
 <BaseLayout
   title="About | AI Live Video"
   description="About AI Live Video, a curated editorial directory for AI live video tools and guides."
   canonicalPath="/about/"
+  breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: 'About' }]}
 >
   <article class="container trust-page">
     <header class="trust-page__hero">
@@ -25,3 +27,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <section>
       <h2>How to read the site</h2>
       <p>Product information can change. Check the linked official sources and the date shown on a record before making a decision. Read our <a href="/editorial-policy/">editorial policy</a> for the standards behind published content.</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .trust-page { padding-bottom: 4rem; } .trust-page__hero { max-width: 48rem; padding-block: 2rem 3rem; } .trust-page__hero > p:last-child { color: var(--color-muted); font-size: 1.125rem; } .trust-page section { max-width: 48rem; margin-top: 1.25rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-soft); } .trust-page h2 { font-size: 1.4rem; }
+</style>

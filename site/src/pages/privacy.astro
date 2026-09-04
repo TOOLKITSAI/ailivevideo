@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { canonicalUrl } from '../lib/seo';
 ---
 
 <BaseLayout
   title="Privacy | AI Live Video"
   description="The current, limited privacy position for the AI Live Video static site."
   canonicalPath="/privacy/"
+  breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: 'Privacy' }]}
 >
   <article class="container trust-page">
     <header class="trust-page__hero">
@@ -27,3 +29,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p>Links to other sites are governed by those sites' own practices. Review the privacy information provided by an external site before sharing information there.</p>
     </section>
   </article>
+</BaseLayout>
+
+<style>
+  .trust-page { padding-bottom: 4rem; } .trust-page__hero { max-width: 48rem; padding-block: 2rem 3rem; } .trust-page__hero > p:last-child { color: var(--color-muted); font-size: 1.125rem; } .trust-page section { max-width: 48rem; margin-top: 1.25rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-soft); } .trust-page h2 { font-size: 1.4rem; }
+</style>
