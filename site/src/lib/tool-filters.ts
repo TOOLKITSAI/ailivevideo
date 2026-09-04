@@ -25,3 +25,16 @@ export function filterTools(items: ToolDirectoryItem[], filters: ToolFilters): T
     (!filters.realTime || item.realTimeCapability === 'native' || item.realTimeCapability === 'near-real-time')
   );
 }
+
+export function serializeDirectoryTools(items: ToolDirectoryItem[]): string {
+  return JSON.stringify(items).replace(/[<>&\u2028\u2029]/g, (character) => {
+    const escaped: Record<string, string> = {
+      '<': '\\u003c',
+      '>': '\\u003e',
+      '&': '\\u0026',
+      '\u2028': '\\u2028',
+      '\u2029': '\\u2029',
+    };
+    return escaped[character];
+  });
+}
