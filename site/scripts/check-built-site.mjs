@@ -92,6 +92,8 @@ export async function inspectBuiltSite(root, options = { enforceReleaseCounts: f
       if (descriptions.length !== 1) errors.push(`${page.relative}: ${descriptions.length ? 'duplicate meta description' : 'missing meta description'}`);
       else if (!descriptions[0].content?.trim()) errors.push(`${page.relative}: empty meta description`);
     }
+    const h1Count = tags(page.html, 'h1').length;
+    if (h1Count !== 1) errors.push(`${page.relative}: expected exactly one H1, found ${h1Count}`);
     const placeholders = [...page.html.matchAll(new RegExp(PLACEHOLDER.source, 'gi'))].map((match) => match[0]);
     for (const placeholder of placeholders) errors.push(`${page.relative}: unfinished placeholder ${placeholder}`);    for (const href of internalLinks(page.html)) {
       let pathname;

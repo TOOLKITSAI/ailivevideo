@@ -9,7 +9,7 @@ toolA: tavus
 toolB: d-id
 ---
 
-# Tavus vs D-ID for conversational video
+## Tavus vs D-ID for conversational video
 
 ## Decision question
 

@@ -9,7 +9,7 @@ toolA: firework
 toolB: bambuser
 ---
 
-# Firework vs Bambuser for enterprise live shopping
+## Firework vs Bambuser for enterprise live shopping
 
 ## Decision question
 

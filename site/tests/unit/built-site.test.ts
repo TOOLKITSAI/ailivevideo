@@ -17,11 +17,11 @@ async function fixture(files: Record<string, string>) {
   return root;
 }
 
-function page({ canonical = 'https://ailivevideo.net/', description = 'A complete fixture page.', body = '' } = {}) {
+function page({ canonical = 'https://ailivevideo.net/', description = 'A complete fixture page.', body = '', heading = '<h1>Fixture page</h1>' } = {}) {
   return `<!doctype html><html><head>
     <link rel="canonical" href="${canonical}">
     <meta name="description" content="${description}">
-  </head><body>${body}</body></html>`;
+  </head><body>${heading}${body}</body></html>`;
 }
 
 afterEach(async () => {
@@ -37,9 +37,17 @@ it('reports a broken root-relative link from a built page', async () => {
     .resolves.toContain('index.html: broken internal link /missing/');
 });
 
+it('reports every built page that does not have exactly one H1', async () => {
+  const root = await fixture({
+    'index.html': page({ heading: '', body: '<h1>Page title</h1><h1>Duplicated article title</h1>' }),
+  });
+
+  await expect(inspectBuiltSite(root, { enforceReleaseCounts: false }))
+    .resolves.toContain('index.html: expected exactly one H1, found 2');
+});
 it('returns metadata, duplicate canonical, and placeholder violations together', async () => {
   const root = await fixture({
-    'index.html': '<!doctype html><html><head></head><body>TODO</body></html>',
+    'index.html': '<!doctype html><html><head></head><body><h1>Fixture page</h1>TODO</body></html>',
     'duplicate/index.html': page(),
     'duplicate-two/index.html': page(),
   });

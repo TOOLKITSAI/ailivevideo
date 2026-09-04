@@ -8,7 +8,7 @@ editorialStatus: published
 relatedTools: [firework, bambuser, commentsold, buywith, videowise, streamyard]
 ---
 
-# AI live shopping guide: build the commerce system first
+## AI live shopping guide: build the commerce system first
 
 AI live shopping is a live or shoppable-video experience connected to products and purchasing, with AI used for a bounded job such as shopper assistance, clips, tagging, search, captions, or moderation. The correct architecture is usually a conventional commerce-video platform plus catalog and checkout integration, not a generative-video host. A human presenter, standard camera feed, or existing studio can remain the right source while AI improves discovery and operations around it.
 

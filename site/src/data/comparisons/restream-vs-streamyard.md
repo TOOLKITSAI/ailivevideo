@@ -9,7 +9,7 @@ toolA: restream
 toolB: streamyard
 ---
 
-# Restream vs StreamYard for browser live production
+## Restream vs StreamYard for browser live production
 
 ## Decision question
 

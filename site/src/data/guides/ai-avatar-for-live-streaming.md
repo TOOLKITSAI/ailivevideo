@@ -8,7 +8,7 @@ editorialStatus: published
 relatedTools: [heygen, tavus, anam, simli, d-id, restream]
 ---
 
-# AI avatar for live streaming: what should you choose?
+## AI avatar for live streaming: what should you choose?
 
 Choose a live AI avatar only when viewers need a responsive visual conversation or a clearly defined live visual layer. If the goal is an approved presenter video, choose rendered avatar production instead. The distinction is decisive: a prerecorded avatar video is submitted, generated, reviewed, and published; an interactive WebRTC avatar receives live participant input and must recover safely when speech, network, knowledge, or policy systems fail.
 

@@ -9,7 +9,7 @@ toolA: heygen
 toolB: synthesia
 ---
 
-# HeyGen vs Synthesia for avatar video production
+## HeyGen vs Synthesia for avatar video production
 
 ## Decision question
 

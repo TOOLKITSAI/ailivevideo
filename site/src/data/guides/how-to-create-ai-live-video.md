@@ -8,7 +8,7 @@ editorialStatus: published
 relatedTools: [tavus, simli, restream, wordly, firework, obs-studio]
 ---
 
-# How to create AI live video
+## How to create AI live video
 
 Create AI live video by first defining the live experience, then assembling only the systems that serve it. A two-way avatar call needs an interaction pipeline; a multilingual broadcast needs translation output; a shopping event needs a player and catalog integration. Most reliable launches combine a generator or agent with separate streaming infrastructure. Starting with a visually impressive demo and adding production, safety, and measurement later is the usual route to an expensive pilot that cannot operate.
 
