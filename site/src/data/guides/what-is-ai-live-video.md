@@ -8,7 +8,7 @@ editorialStatus: published
 relatedTools: [tavus, akool, decart, syncwords, restream, firework]
 ---
 
-# What is AI live video?
+## What is AI live video?
 
 AI live video is video whose creation, interaction, localization, operation, or commerce workflow uses AI while people are watching or participating. It is not one product category and it does not automatically mean an AI-generated presenter. A live camera show with AI captions is AI live video in an assistance sense; a WebRTC digital human answering a visitor is AI live video in an interaction sense; a generated clip completed after a prompt is usually not live video at all.
 
