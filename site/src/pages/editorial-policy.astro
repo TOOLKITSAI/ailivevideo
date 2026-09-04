@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Editorial Policy | AI Live Video"
+  description="How AI Live Video selects, verifies, updates, and corrects editorial content."
+  canonicalPath="/editorial-policy/"
+>
+  <article class="container trust-page">
+    <header class="trust-page__hero">
+      <p class="eyebrow">Editorial policy</p>
+      <h1>Evidence first, with limits made clear</h1>
+      <p>We aim to make product research easier to check, not to replace a reader's own evaluation.</p>
+    </header>
+
+    <section>
+      <h2>What we include</h2>
+      <p>We consider tools and topics that are relevant to AI live video workflows. Inclusion is editorial judgment, not an endorsement or a guarantee that a product will fit every use case.</p>
+    </section>
+    <section>
+      <h2>Evidence and sources</h2>
+      <p>We use official sources where available, including product documentation, provider pricing pages, release notes, and support materials. We distinguish provider claims from our editorial descriptions and link readers to official sources when they are available.</p>
+    </section>
+    <section>
+      <h2>Verification and updates</h2>
+      <p>We review published information against available evidence before it is added or materially updated. A record's published or updated date indicates when it was last verified for that change; it does not promise that every detail remains current after publication. We update, qualify, or remove information when credible new evidence warrants it.</p>
+    </section>
+    <section>
+      <h2>Corrections</h2>
+      <p>We correct material factual errors when we identify them. Where useful, we revise the record's update date or add context so readers can understand the change.</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .trust-page { padding-bottom: 4rem; } .trust-page__hero { max-width: 48rem; padding-block: 2rem 3rem; } .trust-page__hero > p:last-child { color: var(--color-muted); font-size: 1.125rem; } .trust-page section { max-width: 48rem; margin-top: 1.25rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-soft); } .trust-page h2 { font-size: 1.4rem; }

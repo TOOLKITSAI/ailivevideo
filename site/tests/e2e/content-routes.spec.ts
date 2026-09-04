@@ -21,3 +21,14 @@ test('all six category routes render unique headings', async ({ page }) => {
 
   expect(new Set(headings).size).toBe(6);
 });
+test('trust and legal pages are available', async ({ page }) => {
+  for (const path of ['/about/', '/editorial-policy/', '/affiliate-disclosure/', '/privacy/', '/terms/']) {
+    expect((await page.goto(path))?.status()).toBe(200);
+  }
+  await page.goto('/editorial-policy/');
+  await expect(page.getByRole('main')).toContainText(/official sources/i);
+  await expect(page.getByRole('main')).toContainText(/last verified/i);
+  await expect(page.getByRole('main')).toContainText(/corrections/i);
+  await page.goto('/affiliate-disclosure/');
+  await expect(page.getByRole('main')).toContainText(/do not determine our editorial conclusions/i);
+});
