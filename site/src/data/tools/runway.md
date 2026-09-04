@@ -36,4 +36,5 @@ Keep an approved source image and prompt library. A good test looks beyond the a
 
 The input-image requirement is a planning constraint as well as a creative affordance. A team that starts without an image must make or source one first; a team with a supplied image should test crops because output sizing can change composition. Plan a prebuilt inventory of approved frames and a safe fallback reel. Do not schedule a one-off generation as if it were a source that can answer a live presenter or game controller inside a fixed response budget.
 
-Choose Runway when short, reviewable clips and documented delivery settings are the goal. Choose MiniMax H3 Max when the cited faster-than-playback inference profile better matches the iteration loop. Choose PixVerse R1 or Decart when continuous interaction is essential, and World Labs when the required output is a navigable three-dimensional world rather than a video take.
+Choose Runway when short, reviewable clips and documented delivery settings are the goal. Choose MiniMax H3 Max when the cited faster-than-playback generation-completion/throughput profile better matches the iteration loop. Choose PixVerse R1 or Decart when continuous interaction is essential, and World Labs when the required output is a navigable three-dimensional world rather than a video take.
+
