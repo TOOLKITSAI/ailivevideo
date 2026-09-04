@@ -37,6 +37,7 @@ test('directory controls are keyboard accessible', async ({ page }) => {
     }
     await expect(control).toBeFocused();
     await expect(control).toBeVisible();
+    await expect(control).toHaveCSS('outline-style', 'solid');
   }
   for (let tab = 0; tab < 8; tab += 1) {
     await page.keyboard.press('Tab');
