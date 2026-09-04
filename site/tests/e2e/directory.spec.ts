@@ -51,23 +51,40 @@ test('directory filters each capability and combines matching results', async ({
   await page.goto('/tools/');
   const data = await page.locator('#directory-tools').textContent();
   const tools = JSON.parse(data ?? '[]') as Array<{ categorySlugs: string[]; freeAccessStatus: string; apiAvailable: string }>;
+  const search = page.getByRole('searchbox', { name: 'Search tools' });
+  const category = page.getByRole('combobox', { name: 'Category' });
+  const free = page.getByRole('checkbox', { name: 'Free or trial access' });
+  const api = page.getByRole('checkbox', { name: 'API available' });
   const expectCount = async (predicate: (tool: typeof tools[number]) => boolean) => {
     await expect(page.locator('[data-result-count]')).toHaveText(String(tools.filter(predicate).length));
     await expect(visibleCards(page)).toHaveCount(tools.filter(predicate).length);
   };
-  await page.getByRole('combobox', { name: 'Category' }).selectOption('ai-avatars');
+
+  await category.selectOption('ai-avatars');
   await expectCount((tool) => tool.categorySlugs.includes('ai-avatars'));
-  await page.getByRole('button', { name: 'Clear filters' }).click();
-  await page.getByRole('checkbox', { name: 'Free or trial access' }).check();
+  await category.selectOption('all');
+
+  await free.check();
   await expectCount((tool) => tool.freeAccessStatus === 'free' || tool.freeAccessStatus === 'trial');
-  await page.getByRole('button', { name: 'Clear filters' }).click();
-  await page.getByRole('checkbox', { name: 'API available' }).check();
+  await free.uncheck();
+
+  await api.check();
   await expectCount((tool) => tool.apiAvailable === 'yes');
-  await page.getByRole('combobox', { name: 'Category' }).selectOption('ai-avatars');
-  await page.getByRole('checkbox', { name: 'Free or trial access' }).check();
+  await api.uncheck();
+
+  await category.selectOption('ai-avatars');
+  await free.check();
+  await api.check();
   await expectCount((tool) => tool.categorySlugs.includes('ai-avatars') && (tool.freeAccessStatus === 'free' || tool.freeAccessStatus === 'trial') && tool.apiAvailable === 'yes');
+
+  await search.fill('zzzz-not-a-tool');
+  await expect(page.getByRole('heading', { name: 'No tools match these filters yet' })).toBeVisible();
   await page.getByRole('button', { name: 'Clear filters' }).click();
   await expect(page.locator('[data-result-count]')).toHaveText('30');
+  await expect(category).toHaveValue('all');
+  await expect(free).not.toBeChecked();
+  await expect(api).not.toBeChecked();
+  await expect(search).toHaveValue('');
 });
 
 test('directory presents the no-results state separately', async ({ page }) => {
