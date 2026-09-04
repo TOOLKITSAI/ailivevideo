@@ -54,3 +54,6 @@ The previous dedicated VEED `/tools/live-streaming` URL could not be opened and 
 ## Verification
 
 - `npm run validate:content -- --allow-partial`: PASS (`CONTENT_OK tools=25 comparisons=0 guides=0`).`r`n- `npm run check`: PASS (0 errors; only existing inline-script hint and expected empty-collection warnings).`r`n- `npm run build`: PASS; all five new tool routes generated and Pagefind completed.`r`n- `git diff --check`: PASS.`r`n- Body-word counts: Restream 559; StreamYard 555; OBS Studio 550; Streamlabs Desktop 551; VEED Live 596.`r`n- Exact frontmatter-to-ledger source-set comparison: PASS for all five profiles.
+## Commit
+
+Final evidence-fix content commit: 41dcbb788070cdec116bdb799e07f94377d95f59 (ix: tighten streaming evidence trail).
