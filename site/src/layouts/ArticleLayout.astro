@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import BaseLayout from './BaseLayout.astro';
+interface ArticleData { title: string; description: string; publishedAt: Date; updatedAt: Date; officialSources: string[]; }
+interface Props { article: ArticleData; canonicalPath: string; collectionLabel: string; collectionPath: string; relatedTools: CollectionEntry<'tools'>[]; Content: AstroComponentFactory; }
+const { article, canonicalPath, collectionLabel, collectionPath, relatedTools, Content } = Astro.props;
+function formatDate(date: Date): string { return new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(date); }
+---
+<BaseLayout title={`${article.title} | AI Live Video`} description={article.description} canonicalPath={canonicalPath}>
+  <article class="container article">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: collectionLabel, href: collectionPath }, { label: article.title }]} />
+    <header class="article__hero"><p class="eyebrow">{collectionLabel}</p><h1>{article.title}</h1><p class="article__description">{article.description}</p><p class="article__dates"><time datetime={article.publishedAt.toISOString()}>Published {formatDate(article.publishedAt)}</time> <time datetime={article.updatedAt.toISOString()}>Updated {formatDate(article.updatedAt)}</time></p></header>
+    <section class="article__body" aria-label="Article content"><Content /></section>
+    <section aria-labelledby="sources-heading"><h2 id="sources-heading">Official sources</h2><ol>{article.officialSources.map((source, index) => <li><a href={source} target="_blank" rel="noreferrer">Source {index + 1}</a></li>)}</ol></section>
+    {relatedTools.length > 0 && (<section aria-labelledby="related-tools-heading"><h2 id="related-tools-heading">Related tools</h2><ul>{relatedTools.map((tool) => <li><a href={`/tools/${tool.id}/`}>{tool.data.name}</a></li>)}</ul></section>)}
+  </article>
+</BaseLayout>
+<style>
+  .article { padding-bottom: 4rem; } .article__hero { max-width: 48rem; padding-block: 2rem 3rem; } .article__description, .article__dates { color: var(--color-muted); } .article__description { font-size: 1.125rem; } .article__dates { font-size: .875rem; } .article section { max-width: 48rem; margin-top: 2rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-soft); } .article__body :global(img) { max-width: 100%; height: auto; } .article__body :global(pre) { overflow-x: auto; padding: 1rem; border-radius: var(--radius-sm); background: var(--color-bg); } .article h2 { font-size: 1.4rem; } .article ol, .article ul { padding-left: 1.25rem; } .article li + li { margin-top: .5rem; }
+</style>
+

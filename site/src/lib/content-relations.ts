@@ -25,3 +25,37 @@ export function validateToolRelations(tools: ToolRelationRecord[], strict: boole
 
   return issues;
 }
+
+export interface ComparisonRelationRecord {
+  slug: string;
+  toolA: string;
+  toolB: string;
+}
+
+export interface GuideRelationRecord {
+  slug: string;
+  relatedTools: string[];
+}
+
+export function validateArticleRelations(
+  tools: Pick<ToolRelationRecord, 'slug'>[],
+  comparisons: ComparisonRelationRecord[],
+  guides: GuideRelationRecord[],
+): string[] {
+  const issues: string[] = [];
+  const toolSlugs = new Set(tools.map((tool) => tool.slug));
+
+  for (const comparison of comparisons) {
+    for (const toolSlug of [comparison.toolA, comparison.toolB]) {
+      if (!toolSlugs.has(toolSlug)) issues.push(`${comparison.slug}: unknown tool ${toolSlug}`);
+    }
+  }
+
+  for (const guide of guides) {
+    for (const toolSlug of guide.relatedTools) {
+      if (!toolSlugs.has(toolSlug)) issues.push(`${guide.slug}: unknown tool ${toolSlug}`);
+    }
+  }
+
+  return issues;
+}

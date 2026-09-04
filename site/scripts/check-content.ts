@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import { join, parse } from 'node:path';
 import matter from 'gray-matter';
-import { validateToolRelations, type ToolRelationRecord } from '../src/lib/content-relations';
+import { validateArticleRelations, validateToolRelations, type ComparisonRelationRecord, type GuideRelationRecord, type ToolRelationRecord } from '../src/lib/content-relations';
 
 interface ContentEntry {
   slug: string;
@@ -67,6 +67,19 @@ const relations: ToolRelationRecord[] = tools.map((tool) => ({
   alternatives: Array.isArray(tool.data.alternatives) ? tool.data.alternatives.filter((alternative): alternative is string => typeof alternative === 'string') : [],
 }));
 issues.push(...validateToolRelations(relations, strict));
+
+const comparisonRelations: ComparisonRelationRecord[] = comparisons.flatMap((comparison) =>
+  typeof comparison.data.toolA === 'string' && typeof comparison.data.toolB === 'string'
+    ? [{ slug: comparison.slug, toolA: comparison.data.toolA, toolB: comparison.data.toolB }]
+    : [],
+);
+const guideRelations: GuideRelationRecord[] = guides.map((guide) => ({
+  slug: guide.slug,
+  relatedTools: Array.isArray(guide.data.relatedTools)
+    ? guide.data.relatedTools.filter((tool): tool is string => typeof tool === 'string')
+    : [],
+}));
+issues.push(...validateArticleRelations(relations, comparisonRelations, guideRelations));
 
 if (strict && comparisons.length !== 4) issues.push(`expected 4 published comparisons, found ${comparisons.length}`);
 if (strict && guides.length !== 4) issues.push(`expected 4 published guides, found ${guides.length}`);

@@ -1,0 +1,14 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getPublishedGuides, getPublishedTools } from '../../lib/content';
+interface Props { article: CollectionEntry<'guides'>; }
+export async function getStaticPaths() { const guides = await getPublishedGuides(); return guides.map((article) => ({ params: { slug: article.id }, props: { article } })); }
+const { article } = Astro.props;
+const { Content } = await render(article);
+const publishedTools = await getPublishedTools();
+const relatedToolSlugs = new Set(article.data.relatedTools);
+const relatedTools = publishedTools.filter((tool) => relatedToolSlugs.has(tool.id));
+---
+<ArticleLayout article={article.data} canonicalPath={`/guides/${article.id}/`} collectionLabel="Guides" collectionPath="/guides/" relatedTools={relatedTools} Content={Content} />
+

@@ -1,0 +1,14 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getPublishedComparisons, getPublishedTools } from '../../lib/content';
+interface Props { article: CollectionEntry<'comparisons'>; }
+export async function getStaticPaths() { const comparisons = await getPublishedComparisons(); return comparisons.map((article) => ({ params: { slug: article.id }, props: { article } })); }
+const { article } = Astro.props;
+const { Content } = await render(article);
+const publishedTools = await getPublishedTools();
+const relatedToolSlugs = new Set([article.data.toolA, article.data.toolB]);
+const relatedTools = publishedTools.filter((tool) => relatedToolSlugs.has(tool.id));
+---
+<ArticleLayout article={article.data} canonicalPath={`/compare/${article.id}/`} collectionLabel="Comparisons" collectionPath="/compare/" relatedTools={relatedTools} Content={Content} />
+
