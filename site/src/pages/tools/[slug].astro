@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ToolCard, { type DirectoryTool } from '../../components/ToolCard.astro';
 import { CATEGORIES } from '../../data/categories';
@@ -16,7 +16,9 @@ export async function getStaticPaths() {
   return tools.map((entry) => ({ params: { slug: entry.id }, props: { tool: entry } }));
 }
 
-const { tool } = Astro.props;
+const { tool: entry } = Astro.props;
+const tool = { ...entry, render: () => render(entry) };
+const { Content } = await tool.render();
 const allPublishedTools = await getPublishedTools();
 const alternatives = tool.data.alternatives
   .map((slug) => allPublishedTools.find((entry) => entry.id === slug))
@@ -58,6 +60,11 @@ function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
       <h2 id="verdict-heading">Editorial verdict</h2>
       <p>{tool.data.oneLineVerdict}</p>
       <p><strong>Best for:</strong> {tool.data.bestFor}</p>
+    </section>
+
+    <section class="tool-detail__editorial-body" aria-labelledby="editorial-body-heading">
+      <h2 id="editorial-body-heading">Editorial notes</h2>
+      <Content />
     </section>
 
     <section aria-labelledby="capabilities-heading">
@@ -103,6 +110,8 @@ function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
   .tool-detail__hero { padding-block: 2rem 3rem; }
   .tool-detail__description { max-width: 44rem; color: var(--color-muted); font-size: 1.125rem; }
   .tool-detail section { max-width: 48rem; margin-top: 2rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-soft); }
+  .tool-detail__editorial-body :global(img) { max-width: 100%; height: auto; }
+  .tool-detail__editorial-body :global(pre) { overflow-x: auto; padding: 1rem; border-radius: var(--radius-sm); background: var(--color-bg); }
   .tool-detail h2 { font-size: 1.4rem; }
   .tool-detail h3 { margin-top: 1.5rem; font-size: 1.1rem; }
   .tool-detail ul, .tool-detail ol { padding-left: 1.25rem; }
