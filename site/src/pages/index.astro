@@ -1,7 +1,6 @@
 ---
 import SiteSearch from '../components/SiteSearch.astro';
-import FeaturedImage from '../components/FeaturedImage.astro';
-import ToolCard, { type DirectoryTool } from '../components/ToolCard.astro';
+import { type DirectoryTool } from '../components/ToolCard.astro';
 import { CATEGORIES, CATEGORY_SLUGS } from '../data/categories';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getFeaturedTools, getPublishedComparisons, getPublishedGuides, getPublishedTools } from '../lib/content';
@@ -30,78 +29,10 @@ const latestComparisons = comparisons.sort((first, second) => second.data.update
 const latestGuides = guides.sort((first, second) => second.data.updatedAt.getTime() - first.data.updatedAt.getTime()).slice(0, 3);
 ---
 
-<BaseLayout
-  title="AI Live Video — Tools, Comparisons & Guides"
-  description="Explore AI live video tools for avatars, real-time generation, translation, streaming and live shopping, with practical guides and product comparisons."
-  canonicalPath="/"
-  pagefindContentType="homepage"
-  structuredData={[websiteJsonLd()]}
->
-  <section class="homepage-hero" aria-labelledby="homepage-title">
-    <div class="container homepage-hero__inner">
-      <p class="eyebrow">Curated and independently reviewed</p>
-      <h1 id="homepage-title">Find the right AI live video tool</h1>
-      <p class="homepage-hero__description">Explore curated tools for avatars, live shopping, translation and real-time video generation.</p>
-      <SiteSearch />
-      <a class="homepage-hero__browse" href="/tools/">Browse all tools</a>
-    </div>
-  </section>
-
-  <section class="homepage-section" aria-labelledby="popular-categories-title">
-    <div class="container">
-      <div class="homepage-section__heading">
-        <div><p class="eyebrow">Browse by need</p><h2 id="popular-categories-title">Popular categories</h2></div>
-        <a href="/categories/ai-avatars/">Explore AI avatars</a>
-      </div>
-      <ul class="category-grid" role="list">
-        {CATEGORY_SLUGS.map((slug) => (
-          <li><a class="category-card" href={`/categories/${slug}/`}><span>{CATEGORIES[slug].name}</span><small>{CATEGORIES[slug].description}</small></a></li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <section class="homepage-section homepage-section--surface" aria-labelledby="featured-tools-title">
-    <div class="container">
-      <div class="homepage-section__heading">
-        <div><p class="eyebrow">Editorial picks</p><h2 id="featured-tools-title">Featured tools</h2></div>
-        <a href="/tools/">View all tools</a>
-      </div>
-      {featuredCards.length > 0 ? (
-        <div class="tool-grid">{featuredCards.map((tool) => <ToolCard tool={tool} />)}</div>
-      ) : (
-        <div class="homepage-empty-state">
-          <h3>Tools are being reviewed</h3>
-          <p>Our directory is growing. Browse the tool directory to see newly published records.</p>
-          <a class="button" href="/tools/">Browse the tool directory</a>
-        </div>
-      )}
-    </div>
-  </section>
-
-  <section class="homepage-section" aria-labelledby="featured-comparison-title">
-    <div class="container">
-      <div class="homepage-section__heading"><div><p class="eyebrow">Make a clearer choice</p><h2 id="featured-comparison-title">Featured comparison</h2></div><a href="/compare/heygen-vs-synthesia/">Read HeyGen vs Synthesia</a></div>
-      {latestComparisons[0] ? (
-        <article class="featured-article"><FeaturedImage slug={latestComparisons[0].id} /><p class="eyebrow">Comparison</p><h3><a href={`/compare/${latestComparisons[0].id}/`}>{latestComparisons[0].data.title}</a></h3><p>{latestComparisons[0].data.description}</p><a href={`/compare/${latestComparisons[0].id}/`}>Read comparison</a></article>
-      ) : (
-        <div class="homepage-empty-state"><p>Published comparisons will appear here as they are independently reviewed.</p><a href="/tools/">Browse the tool directory</a></div>
-      )}
-    </div>
-  </section>
-
-  <section class="homepage-section homepage-section--surface" aria-labelledby="guides-title">
-    <div class="container">
-      <div class="homepage-section__heading"><div><p class="eyebrow">Practical reading</p><h2 id="guides-title">Learn about AI live video</h2></div><a href="/guides/what-is-ai-live-video/">Read the introduction</a></div>
-      {latestGuides.length > 0 ? (
-        <div class="article-grid">{latestGuides.map((guide) => <article class="article-card"><FeaturedImage slug={guide.id} /><p class="eyebrow">Guide</p><h3><a href={`/guides/${guide.id}/`}>{guide.data.title}</a></h3><p>{guide.data.description}</p><a href={`/guides/${guide.id}/`}>Read guide</a></article>)}</div>
-      ) : (
-        <div class="homepage-empty-state"><p>Guides will appear here as our editors publish practical research.</p></div>
-      )}
-    </div>
-  </section>
-
-  <section class="homepage-section homepage-method" aria-labelledby="method-title">
-    <div class="container"><p class="eyebrow">Our editorial method</p><h2 id="method-title">Useful recommendations, with the evidence in view</h2><p>We review product claims, pricing, real-time capabilities, and official sources before publishing a record. <a href="/editorial-policy/">Read our editorial policy</a>.</p></div>
-  </section>
+<BaseLayout title="AI Live Video — Tools, Comparisons & Guides" description="Explore AI live video tools for avatars, real-time generation, translation, streaming and live shopping, with practical guides and product comparisons." canonicalPath="/" pagefindContentType="homepage" structuredData={[websiteJsonLd()]}>
+<section class="discovery-top"><div class="container"><div><p class="discovery-count">{publishedTools.length} tools · {CATEGORY_SLUGS.length} categories</p><h1>Find the right AI live video tool</h1><p>Explore tools for avatars, live shopping, translation and real-time video generation.</p></div><div><SiteSearch /><a class="homepage-hero__browse" href="/tools/">Browse all tools</a></div></div></section>
+<div class="container discovery-layout"><aside id="browse-categories" class="discovery-categories" aria-label="Browse by category"><h2>Browse by need</h2><ul>{CATEGORY_SLUGS.map(slug=><li><a href={`/categories/${slug}/`}>{{"ai-avatars":"AI avatars","real-time-generative-video":"Real-time generation","ai-video-agents":"Video agents","live-translation-dubbing":"Live translation","streaming-production-automation":"Streaming automation","ai-live-shopping":"Live shopping"}[slug]}</a></li>)}</ul></aside>
+<section aria-labelledby="featured-tools-title"><div class="discovery-heading"><h2 id="featured-tools-title">Featured tools</h2><a href="/tools/">View all tools →</a></div><div class="discovery-grid">{featuredCards.map(tool=><article class="discovery-tool"><figure><a href={`/tools/${tool.slug}/`} tabindex="-1" aria-hidden="true"><img src={`/images/tools/${tool.slug}-600.webp`} width="600" height="375" alt="" loading="lazy" /></a></figure><p class="tool-kind">{tool.categoryLabel}</p><h3><a href={`/tools/${tool.slug}/`}>{tool.name}</a></h3><p>{tool.oneLineVerdict}</p><a href={`/tools/${tool.slug}/`} aria-label={`View details for ${tool.name}`}>View details</a></article>)}</div></section></div>
+<section class="reading-band"><div class="container reading-layout"><div><div class="discovery-heading"><h2>Compare your options</h2></div><ul class="reading-list">{latestComparisons.map(article=><li><h3><a href={`/compare/${article.id}/`}>{article.data.title}</a></h3><p>{article.data.description}</p></li>)}</ul></div><div><div class="discovery-heading"><h2>Learn about AI live video</h2></div><ul class="reading-list">{latestGuides.map(article=><li><h3><a href={`/guides/${article.id}/`}>{article.data.title}</a></h3><p>{article.data.description}</p></li>)}</ul><a class="homepage-hero__browse" href="/guides/what-is-ai-live-video/">Read the introduction</a></div></div></section>
+<div class="container method-note"><p>Product claims, real-time capabilities and official sources, checked before publication. <a href="/editorial-policy/">Our editorial policy</a></p></div>
 </BaseLayout>

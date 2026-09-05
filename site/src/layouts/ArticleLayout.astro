@@ -29,6 +29,7 @@ function formatDate(date: Date): string { return new Intl.DateTimeFormat('en', {
     <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: article.title }]} />
     <header class="article__hero"><p class="eyebrow">{collectionLabel}</p><h1>{article.title}</h1><p class="article__description">{article.description}</p><p class="article__dates"><time datetime={article.publishedAt.toISOString()}>Published {formatDate(article.publishedAt)}</time> <time datetime={article.updatedAt.toISOString()}>Updated {formatDate(article.updatedAt)}</time></p></header>
     <figure class="article-figure"><FeaturedImage slug={articleSlug} priority /><figcaption>AI-generated editorial illustration; not a product screenshot.</figcaption></figure>
+    <details class="article-toc" hidden><summary>On this page</summary><ul></ul></details>
     <section class="article__body" aria-label="Article content"><Content /></section>
     <section aria-labelledby="sources-heading"><h2 id="sources-heading">Official sources</h2><ol>{article.officialSources.map((source, index) => <li><a href={source} target="_blank" rel="noreferrer">Source {index + 1}</a></li>)}</ol></section>
     {relatedTools.length > 0 && (<section aria-labelledby="related-tools-heading"><h2 id="related-tools-heading">Related tools</h2><ul>{relatedTools.map((tool) => <li><a href={`/tools/${tool.id}/`}>{tool.data.name}</a></li>)}</ul></section>)}
@@ -38,3 +39,7 @@ function formatDate(date: Date): string { return new Intl.DateTimeFormat('en', {
   .article { padding-bottom: 4rem; } .article__hero { max-width: 48rem; padding-block: 2rem 3rem; } .article__description, .article__dates { color: var(--color-muted); } .article__description { font-size: 1.125rem; } .article__dates { font-size: .875rem; } .article section { max-width: 48rem; margin-top: 2rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-soft); } .article__body :global(img) { max-width: 100%; height: auto; } .article__body :global(pre) { overflow-x: auto; padding: 1rem; border-radius: var(--radius-sm); background: var(--color-bg); } .article h2 { font-size: 1.4rem; } .article ol, .article ul { padding-left: 1.25rem; } .article li + li { margin-top: .5rem; }
 </style>
 
+
+<script>
+const toc=document.querySelector<HTMLDetailsElement>('.article-toc');const headings=document.querySelectorAll<HTMLHeadingElement>('.article__body h2[id]');if(toc&&headings.length){const list=toc.querySelector('ul');headings.forEach(h=>{const li=document.createElement('li');const a=document.createElement('a');a.href='#'+h.id;a.textContent=h.textContent;li.append(a);list?.append(li);});toc.hidden=false;}
+</script>
