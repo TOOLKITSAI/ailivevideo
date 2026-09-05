@@ -16,6 +16,7 @@
   const input = form?.querySelector<HTMLInputElement>('input[type="search"]');
   const results = form?.querySelector<HTMLElement>('[data-search-results]');
   let pagefind: PagefindApi | undefined;
+  let searchVersion = 0;
   let loading: Promise<PagefindApi | undefined> | undefined;
   let debounceTimer: ReturnType<typeof setTimeout> | undefined;
 
@@ -73,20 +74,23 @@
   };
 
   const search = async () => {
+    const version = ++searchVersion;
     const query = input?.value.trim() ?? '';
     if (!query) {
       if (results) results.replaceChildren();
       return;
     }
     const api = await loadPagefind();
-    if (!api) return;
+    if (!api || version !== searchVersion) return;
     const response = await api.search(query);
     const matches = await Promise.all(response.results.slice(0, 8).map((result) => result.data()));
-    renderResults(matches);
+    if (version === searchVersion) renderResults(matches);
   };
 
   input?.addEventListener('focus', () => { void loadPagefind(); }, { once: true });
   input?.addEventListener('input', () => {
+    searchVersion += 1;
+    if (!input.value.trim()) results?.replaceChildren();
     if (debounceTimer) clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => { void search(); }, 150);
   });

@@ -7,13 +7,10 @@ describe('Astro project configuration', () => {
     expect(config.trailingSlash).toBe('always');
     expect(config.output).toBe('static');
   });
-  it('excludes legal and non-content pages from the sitemap', () => {
+  it('excludes only the non-indexable error page from the sitemap', () => {
     expect([...excludedSitemapPaths]).toEqual([
-      '/about/',
-      '/affiliate-disclosure/',
-      '/editorial-policy/',
-      '/privacy/',
-      '/terms/',
+      '/404/',
+      '/404.html',
     ]);
   });
 });

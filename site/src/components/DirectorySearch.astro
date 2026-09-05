@@ -54,7 +54,7 @@ const serializedTools = serializeDirectoryTools(tools);
   </div>
 </section>
 
-<script id="directory-tools" type="application/json" set:html={serializedTools}></script>
+<script is:inline id="directory-tools" type="application/json" set:html={serializedTools}></script>
 
 <script>
   import { filterTools } from '../lib/tool-filters';

@@ -26,7 +26,7 @@ const initialMark = tool.name.trim().charAt(0).toLocaleUpperCase('en') || '?';
     <h2>{tool.name}</h2>
     <p class="tool-card__verdict">{tool.oneLineVerdict}</p>
     <p class="tool-card__best-for"><strong>Best for:</strong> {tool.bestFor}</p>
-    <a href={`/tools/${tool.slug}/`} aria-label={`View ${tool.name} details`}>View details</a>
+    <a href={`/tools/${tool.slug}/`} aria-label={`View details for ${tool.name}`}>View details</a>
   </div>
 </article>
 

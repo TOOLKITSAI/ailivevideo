@@ -14,7 +14,7 @@ realTimeCapability: native
 pros: [Published official sources, Clear avatar workflow, Multiple delivery options]
 cons: [Plan details can change, Requires content review, Integration scope varies]
 alternatives: [synthesia, d-id, akool, deepbrain-ai]
-officialSources: [https://www.heygen.com/, https://www.heygen.com/pricing, https://help.heygen.com/en/articles/12758516-introducing-liveavatar, https://developers.heygen.com/docs/pricing]
+officialSources: [https://www.heygen.com/, https://www.heygen.com/pricing, https://help.heygen.com/en/articles/12758516-introducing-liveavatar, https://app.heygen.com/developers/api?modal=pricing]
 lastVerified: 2026-09-04
 editorialStatus: published
 featured: false

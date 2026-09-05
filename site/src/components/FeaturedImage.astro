@@ -1,0 +1,7 @@
+---
+import { articleImages } from '../lib/images';
+interface Props { slug: string; priority?: boolean; }
+const { slug, priority = false } = Astro.props;
+const asset = articleImages[slug];
+---
+{asset && <img class="featured-image" src={asset.src} srcset={asset.src.replace('.webp', '-600.webp') + ' 600w, ' + asset.src + ' 1200w'} sizes="(max-width: 640px) calc(100vw - 32px), 768px" width="1200" height="800" alt={asset.alt} loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />}

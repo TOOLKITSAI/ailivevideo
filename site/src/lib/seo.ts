@@ -9,6 +9,7 @@ export interface BreadcrumbItem {
   url?: string;
 }
 export interface ArticleSource {
+  image?: string;
   title: string;
   description: string;
   canonicalUrl: string;
@@ -57,6 +58,7 @@ export function articleJsonLd(article: ArticleSource) {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
+    ...(article.image ? { image: article.image } : {}),
     description: article.description,
     url: article.canonicalUrl,
     mainEntityOfPage: article.canonicalUrl,

@@ -3,24 +3,32 @@ import type { CollectionEntry } from 'astro:content';
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import BaseLayout from './BaseLayout.astro';
+import FeaturedImage from '../components/FeaturedImage.astro';
+import { articleImages } from '../lib/images';
 import { articleJsonLd, canonicalUrl } from '../lib/seo';
 interface ArticleData { title: string; description: string; publishedAt: Date; updatedAt: Date; officialSources: string[]; }
 interface Props { article: ArticleData; canonicalPath: string; collectionLabel: string; collectionPath: string; relatedTools: CollectionEntry<'tools'>[]; Content: AstroComponentFactory; pagefindContentType?: string; pagefindCategories?: string[]; }
-const { article, canonicalPath, collectionLabel, collectionPath, relatedTools, Content, pagefindContentType, pagefindCategories = [] } = Astro.props;
+const { article, canonicalPath, collectionLabel, relatedTools, Content, pagefindContentType, pagefindCategories = [] } = Astro.props;
+const articleSlug = canonicalPath.split('/').filter(Boolean).at(-1) ?? '';
+const featuredImage = articleImages[articleSlug];
 function formatDate(date: Date): string { return new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(date); }
 ---
 <BaseLayout
   title={article.title + ' | AI Live Video'}
   description={article.description}
   canonicalPath={canonicalPath}
+  image={featuredImage?.src}
+  imageAlt={featuredImage?.alt}
+  ogType="article"
   pagefindContentType={pagefindContentType}
   pagefindCategories={pagefindCategories}
-  structuredData={[articleJsonLd({ ...article, canonicalUrl: canonicalUrl(canonicalPath) })]}
+  structuredData={[articleJsonLd({ ...article, canonicalUrl: canonicalUrl(canonicalPath), image: featuredImage ? new URL(featuredImage.src, canonicalUrl(canonicalPath)).href : undefined })]}
   breadcrumbs={[{ name: 'Home', url: canonicalUrl('/') }, { name: article.title }]}
 >
   <article class="container article">
     <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: article.title }]} />
     <header class="article__hero"><p class="eyebrow">{collectionLabel}</p><h1>{article.title}</h1><p class="article__description">{article.description}</p><p class="article__dates"><time datetime={article.publishedAt.toISOString()}>Published {formatDate(article.publishedAt)}</time> <time datetime={article.updatedAt.toISOString()}>Updated {formatDate(article.updatedAt)}</time></p></header>
+    <figure class="article-figure"><FeaturedImage slug={articleSlug} priority /><figcaption>AI-generated editorial illustration; not a product screenshot.</figcaption></figure>
     <section class="article__body" aria-label="Article content"><Content /></section>
     <section aria-labelledby="sources-heading"><h2 id="sources-heading">Official sources</h2><ol>{article.officialSources.map((source, index) => <li><a href={source} target="_blank" rel="noreferrer">Source {index + 1}</a></li>)}</ol></section>
     {relatedTools.length > 0 && (<section aria-labelledby="related-tools-heading"><h2 id="related-tools-heading">Related tools</h2><ul>{relatedTools.map((tool) => <li><a href={`/tools/${tool.id}/`}>{tool.data.name}</a></li>)}</ul></section>)}

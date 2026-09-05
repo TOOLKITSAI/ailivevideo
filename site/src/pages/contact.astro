@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { canonicalUrl } from '../lib/seo';
+---
+<BaseLayout title="Contact | AI Live Video" description="Contact AI Live Video with editorial corrections, tool suggestions, or questions about this directory." canonicalPath="/contact/" breadcrumbs={[{name:'Home',url:canonicalUrl('/')},{name:'Contact'}]}>
+  <article class="container utility-page">
+    <p class="eyebrow">Contact</p><h1>Contact AI Live Video</h1>
+    <p>For editorial corrections, tool suggestions, or questions about this site, email <a href="mailto:contact@ailivevideo.net">contact@ailivevideo.net</a>.</p>
+    <section><h2>Suggest a correction</h2><p>Include the page URL, the information you believe needs updating, and a link to an official source where possible. See our <a href="/editorial-policy/">editorial policy</a>.</p></section>
+    <section><h2>Product support</h2><p>For account, billing, or technical support for a listed tool, contact its provider using the official website linked from the tool page.</p></section>
+  </article>
+</BaseLayout>

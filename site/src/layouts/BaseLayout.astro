@@ -11,13 +11,16 @@ interface Props {
   description: string;
   canonicalPath: string;
   noindex?: boolean;
+  image?: string;
+  imageAlt?: string;
+  ogType?: 'website' | 'article';
   structuredData?: unknown[];
   breadcrumbs?: BreadcrumbItem[];
   pagefindContentType?: string;
   pagefindCategories?: string[];
 }
 
-const { title, description, canonicalPath, noindex = false, structuredData = [], breadcrumbs = [], pagefindContentType, pagefindCategories = [] } = Astro.props;
+const { title, description, canonicalPath, noindex = false, image, imageAlt, ogType, structuredData = [], breadcrumbs = [], pagefindContentType, pagefindCategories = [] } = Astro.props;
 const pageCanonicalUrl = canonicalUrl(canonicalPath);
 const jsonLd = [...structuredData, ...(breadcrumbs.length > 0 ? [breadcrumbJsonLd(breadcrumbs)] : [])];
 ---
@@ -25,7 +28,7 @@ const jsonLd = [...structuredData, ...(breadcrumbs.length > 0 ? [breadcrumbJsonL
 <!doctype html>
 <html lang="en">
   <head>
-    <SeoHead title={title} description={description} canonicalUrl={pageCanonicalUrl} noindex={noindex} />
+    <SeoHead title={title} description={description} canonicalUrl={pageCanonicalUrl} noindex={noindex} image={image} imageAlt={imageAlt} ogType={ogType} />
     {pagefindContentType && <meta data-pagefind-filter="content_type" content={pagefindContentType} />}
     {pagefindCategories.map((category) => <meta data-pagefind-filter="category" content={category} />)}
     {jsonLd.map((value) => <JsonLd value={value} />)}
@@ -33,7 +36,7 @@ const jsonLd = [...structuredData, ...(breadcrumbs.length > 0 ? [breadcrumbJsonL
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <div data-pagefind-ignore><Header /></div>
-    <main id="main-content" tabindex="-1" data-pagefind-body>
+    <main id="main-content" tabindex="-1" data-pagefind-body={!noindex || undefined} data-pagefind-ignore={noindex || undefined}>
       <slot />
     </main>
     <div data-pagefind-ignore><Footer /></div>

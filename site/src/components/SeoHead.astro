@@ -1,13 +1,28 @@
 ---
-interface Props { title: string; description: string; canonicalUrl: string; noindex?: boolean; }
-const { title, description, canonicalUrl, noindex = false } = Astro.props;
+interface Props { title: string; description: string; canonicalUrl: string; noindex?: boolean; image?: string; imageAlt?: string; ogType?: 'website' | 'article'; }
+const { title, description, canonicalUrl, noindex = false, image = '/images/brand/social.png', imageAlt = 'AI Live Video: tools, comparisons and practical guides', ogType = 'website' } = Astro.props;
+const imageUrl = new URL(image, canonicalUrl).href;
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta name="theme-color" content="#635bff" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content="AI Live Video" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={imageAlt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
 {noindex && <meta name="robots" content="noindex,follow" />}
 <title>{title}</title>

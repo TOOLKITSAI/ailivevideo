@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const TRUST_ROUTES = ['/privacy/', '/terms/', '/affiliate-disclosure/', '/about/', '/editorial-policy/'];
-const LEGAL_ROUTES = ['/privacy/', '/terms/', '/affiliate-disclosure/'];
+const ERROR_ROUTES = ['/404/', '/404.html'];
 const PLACEHOLDER = /\b(?:TBD|TODO)\b|lorem ipsum|example\.com|\[(?:citation|cite|source)(?::[^\]]*)?\]/i;
 const ASSET_EXTENSION = /\.(?:avif|css|gif|ico|jpe?g|js|json|map|mp3|mp4|pdf|png|svg|txt|webp|woff2?)$/i;
 
@@ -115,8 +115,8 @@ export async function inspectBuiltSite(root, options = { enforceReleaseCounts: f
     for (const route of TRUST_ROUTES) if (!routes.has(route)) errors.push(`release routes: missing ${route}`);
     let sitemap = '';
     try { sitemap = await readFile(path.join(root, 'sitemap-0.xml'), 'utf8'); } catch { errors.push('sitemap: missing sitemap-0.xml'); }
-    for (const route of TRUST_ROUTES) if (sitemap.includes(`https://ailivevideo.net${route}`)) errors.push(`sitemap: excluded trust/legal route present ${route}`);
-    for (const route of LEGAL_ROUTES) if (sitemap.includes(`https://ailivevideo.net${route}`)) errors.push(`sitemap: legal route present ${route}`);
+    for (const route of TRUST_ROUTES) if (!sitemap.includes(`https://ailivevideo.net${route}`)) errors.push(`sitemap: indexable trust page missing ${route}`);
+    for (const route of ERROR_ROUTES) if (sitemap.includes(`https://ailivevideo.net${route}`)) errors.push(`sitemap: error route present ${route}`);
     for (const page of pages.filter((page) => routeFor(page.relative).startsWith('/tools/') && routeFor(page.relative) !== '/tools/')) {
       const text = visibleText(page.html);
       if (!/Last verified/i.test(text)) errors.push(`${page.relative}: missing visible Last verified`);

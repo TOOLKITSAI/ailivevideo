@@ -1,0 +1,212 @@
+{
+  "akool": {
+    "src": "/images/tools/akool.webp",
+    "source": "https://akool.com/",
+    "finalUrl": "https://akool.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "AKOOL official website first-screen screenshot, captured September 5, 2026."
+  },
+  "anam": {
+    "src": "/images/tools/anam.webp",
+    "source": "https://anam.ai/",
+    "finalUrl": "https://anam.ai/",
+    "capturedAt": "2026-09-05",
+    "alt": "Anam official website first-screen screenshot, captured September 5, 2026."
+  },
+  "ai-media-lexi": {
+    "src": "/images/tools/ai-media-lexi.webp",
+    "source": "https://www.ai-media.tv/our-products/lexi-ai-powered-captioning-tool-kit/lexi-translate/",
+    "finalUrl": "https://www.ai-media.tv/our-products/lexi-ai-powered-captioning-tool-kit/lexi-translate/",
+    "capturedAt": "2026-09-05",
+    "alt": "AI-Media LEXI Translate official website first-screen screenshot, captured September 5, 2026."
+  },
+  "bambuser": {
+    "src": "/images/tools/bambuser.webp",
+    "source": "https://bambuser.com/",
+    "finalUrl": "https://bambuser.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "Bambuser official website first-screen screenshot, captured September 5, 2026."
+  },
+  "buywith": {
+    "src": "/images/tools/buywith.webp",
+    "source": "https://www.buywith.com/",
+    "finalUrl": "https://www.buywith.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "buywith official website first-screen screenshot, captured September 5, 2026."
+  },
+  "commentsold": {
+    "src": "/images/tools/commentsold.webp",
+    "source": "https://try.commentsold.com/",
+    "finalUrl": "https://try.commentsold.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "CommentSold official website first-screen screenshot, captured September 5, 2026."
+  },
+  "d-id": {
+    "src": "/images/tools/d-id.webp",
+    "source": "https://www.d-id.com/",
+    "finalUrl": "https://www.d-id.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "D-ID official website first-screen screenshot, captured September 5, 2026."
+  },
+  "decart": {
+    "src": "/images/tools/decart.webp",
+    "source": "https://decart.ai/lucy",
+    "finalUrl": "https://decart.ai/lucy",
+    "capturedAt": "2026-09-05",
+    "alt": "Decart Lucy official website first-screen screenshot, captured September 5, 2026."
+  },
+  "firework": {
+    "src": "/images/tools/firework.webp",
+    "source": "https://firework.com/",
+    "finalUrl": "https://firework.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "Firework official website first-screen screenshot, captured September 5, 2026."
+  },
+  "heygen": {
+    "src": "/images/tools/heygen.webp",
+    "source": "https://www.heygen.com/",
+    "finalUrl": "https://www.heygen.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "HeyGen official website first-screen screenshot, captured September 5, 2026."
+  },
+  "deepbrain-ai": {
+    "src": "/images/tools/deepbrain-ai.webp",
+    "source": "https://www.deepbrain.io/",
+    "finalUrl": "https://www.aistudios.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "DeepBrain AI official website first-screen screenshot, captured September 5, 2026."
+  },
+  "interprefy": {
+    "src": "/images/tools/interprefy.webp",
+    "source": "https://www.interprefy.com/",
+    "finalUrl": "https://www.interprefy.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "Interprefy official website first-screen screenshot, captured September 5, 2026."
+  },
+  "kudo": {
+    "src": "/images/tools/kudo.webp",
+    "source": "https://kudo.ai/",
+    "finalUrl": "https://kudo.ai/",
+    "capturedAt": "2026-09-05",
+    "alt": "KUDO official website first-screen screenshot, captured September 5, 2026."
+  },
+  "obs-studio": {
+    "src": "/images/tools/obs-studio.webp",
+    "source": "https://obsproject.com/",
+    "finalUrl": "https://obsproject.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "OBS Studio official website first-screen screenshot, captured September 5, 2026."
+  },
+  "minimax-h3-max": {
+    "src": "/images/tools/minimax-h3-max.webp",
+    "source": "https://fal.ai/minimax-h3-max",
+    "finalUrl": "https://fal.ai/minimax-h3-max",
+    "capturedAt": "2026-09-05",
+    "alt": "MiniMax H3 Max official website first-screen screenshot, captured September 5, 2026."
+  },
+  "pixverse-r1": {
+    "src": "/images/tools/pixverse-r1.webp",
+    "source": "https://world.pixverse.ai/",
+    "finalUrl": "https://world.pixverse.video/",
+    "capturedAt": "2026-09-05",
+    "alt": "PixVerse R1 official website first-screen screenshot, captured September 5, 2026."
+  },
+  "restream": {
+    "src": "/images/tools/restream.webp",
+    "source": "https://restream.io/",
+    "finalUrl": "https://restream.io/",
+    "capturedAt": "2026-09-05",
+    "alt": "Restream official website first-screen screenshot, captured September 5, 2026."
+  },
+  "simli": {
+    "src": "/images/tools/simli.webp",
+    "source": "https://www.simli.com/",
+    "finalUrl": "https://www.simli.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "Simli official website first-screen screenshot, captured September 5, 2026."
+  },
+  "runway": {
+    "src": "/images/tools/runway.webp",
+    "source": "https://runwayml.com/",
+    "finalUrl": "https://runway.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "Runway official website first-screen screenshot, captured September 5, 2026."
+  },
+  "soul-machines": {
+    "src": "/images/tools/soul-machines.webp",
+    "source": "https://www.soulmachines.com/",
+    "finalUrl": "https://www.soulmachines.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "Soul Machines official website first-screen screenshot, captured September 5, 2026."
+  },
+  "streamlabs": {
+    "src": "/images/tools/streamlabs.webp",
+    "source": "https://streamlabs.com/desktop-app",
+    "finalUrl": "https://streamlabs.com/desktop-app",
+    "capturedAt": "2026-09-05",
+    "alt": "Streamlabs Desktop official website first-screen screenshot, captured September 5, 2026."
+  },
+  "syncwords": {
+    "src": "/images/tools/syncwords.webp",
+    "source": "https://www.syncwords.com/",
+    "finalUrl": "https://www.syncwords.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "SyncWords official website first-screen screenshot, captured September 5, 2026."
+  },
+  "streamyard": {
+    "src": "/images/tools/streamyard.webp",
+    "source": "https://streamyard.com/",
+    "finalUrl": "https://streamyard.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "StreamYard official website first-screen screenshot, captured September 5, 2026."
+  },
+  "synthesia": {
+    "src": "/images/tools/synthesia.webp",
+    "source": "https://www.synthesia.io/",
+    "finalUrl": "https://www.synthesia.io/",
+    "capturedAt": "2026-09-05",
+    "alt": "Synthesia official website first-screen screenshot, captured September 5, 2026."
+  },
+  "tavus": {
+    "src": "/images/tools/tavus.webp",
+    "source": "https://www.tavus.io/",
+    "finalUrl": "https://www.tavus.io/",
+    "capturedAt": "2026-09-05",
+    "alt": "Tavus official website first-screen screenshot, captured September 5, 2026."
+  },
+  "uneeq": {
+    "src": "/images/tools/uneeq.webp",
+    "source": "https://www.digitalhumans.com/",
+    "finalUrl": "https://www.digitalhumans.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "UneeQ official website first-screen screenshot, captured September 5, 2026."
+  },
+  "veed-live": {
+    "src": "/images/tools/veed-live.webp",
+    "source": "https://www.veed.io/use-cases/meetings-communication",
+    "finalUrl": "https://www.veed.io/use-cases/meetings-communication",
+    "capturedAt": "2026-09-05",
+    "alt": "VEED Live official website first-screen screenshot, captured September 5, 2026."
+  },
+  "videowise": {
+    "src": "/images/tools/videowise.webp",
+    "source": "https://videowise.com/",
+    "finalUrl": "https://videowise.com/",
+    "capturedAt": "2026-09-05",
+    "alt": "Videowise official website first-screen screenshot, captured September 5, 2026."
+  },
+  "wordly": {
+    "src": "/images/tools/wordly.webp",
+    "source": "https://www.wordly.ai/",
+    "finalUrl": "https://www.wordly.ai/",
+    "capturedAt": "2026-09-05",
+    "alt": "Wordly official website first-screen screenshot, captured September 5, 2026."
+  },
+  "world-labs": {
+    "src": "/images/tools/world-labs.webp",
+    "source": "https://marble.worldlabs.ai/",
+    "finalUrl": "https://marble.worldlabs.ai/",
+    "capturedAt": "2026-09-05",
+    "alt": "World Labs Marble official website first-screen screenshot, captured September 5, 2026."
+  }
+}

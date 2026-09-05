@@ -22,7 +22,7 @@ test('directory controls are keyboard accessible', async ({ page }) => {
   const category = page.getByRole('combobox', { name: 'Category' });
   const free = page.getByRole('checkbox', { name: 'Free or trial access' });
   const api = page.getByRole('checkbox', { name: 'API available' });
-  const firstCardLink = visibleCards(page).first().getByRole('link', { name: /View .* details/ });
+  const firstCardLink = visibleCards(page).first().getByRole('link', { name: /View details for / });
   for (let tab = 0; tab < 8; tab += 1) {
     await page.keyboard.press('Tab');
     if (await headerLink.evaluate((element) => element === document.activeElement)) break;

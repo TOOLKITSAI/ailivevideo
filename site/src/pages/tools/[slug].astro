@@ -3,6 +3,7 @@ import { render, type CollectionEntry } from 'astro:content';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ToolCard, { type DirectoryTool } from '../../components/ToolCard.astro';
 import { CATEGORIES } from '../../data/categories';
+import toolScreenshots from '../../data/tool-screenshots.json';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedTools } from '../../lib/content';
 import { canonicalUrl, softwareApplicationJsonLd } from '../../lib/seo';
@@ -26,6 +27,7 @@ const alternatives = tool.data.alternatives
 const categoryNames = tool.data.categories.map((category) => CATEGORIES[category].name);
 const canonicalPath = `/tools/${tool.id}/`;
 const pageCanonicalUrl = canonicalUrl(canonicalPath);
+const screenshot = toolScreenshots[entry.id as keyof typeof toolScreenshots];
 const lastVerified = tool.data.lastVerified.toISOString().slice(0, 10);
 
 function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
@@ -47,6 +49,8 @@ function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
   title={tool.data.name + ' — AI Live Video Tools'}
   description={tool.data.description}
   canonicalPath={canonicalPath}
+  image={screenshot?.src}
+  imageAlt={screenshot?.alt}
   pagefindContentType="tool"
   pagefindCategories={tool.data.categories}
   structuredData={[softwareApplicationJsonLd(tool.data, pageCanonicalUrl)]}
@@ -61,6 +65,8 @@ function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
       <p class="tool-detail__description">{tool.data.description}</p>
       <a class="button" href={tool.data.officialUrl} target="_blank" rel="noreferrer">Visit official website</a>
     </header>
+
+    {screenshot && <figure class="tool-figure"><img class="tool-screenshot" src={screenshot.src} srcset={screenshot.src.replace('.webp', '-600.webp') + ' 600w, ' + screenshot.src + ' 1200w'} sizes="(max-width: 640px) calc(100vw - 32px), 768px" width="1200" height="750" alt={screenshot.alt} loading="eager" decoding="async" /><figcaption>Official website screenshot · <time datetime={screenshot.capturedAt}>{screenshot.capturedAt}</time> · <a href={screenshot.source} target="_blank" rel="noreferrer">View source</a></figcaption></figure>}
 
     <section aria-labelledby="verdict-heading">
       <h2 id="verdict-heading">Editorial verdict</h2>
@@ -88,7 +94,7 @@ function toDirectoryTool(entry: CollectionEntry<'tools'>): DirectoryTool {
         <div><dt>API availability</dt><dd>{tool.data.apiAvailable}</dd></div>
         <div><dt>Real-time capability</dt><dd>{tool.data.realTimeCapability}</dd></div>
       </dl>
-      <p><a href={tool.data.officialUrl} target="_blank" rel="noreferrer">Check official pricing</a></p>
+      <p><a href={tool.data.officialUrl} target="_blank" rel="noreferrer">Visit website for current plans</a></p>
     </section>
 
     <section class="tool-detail__columns" aria-label="Editorial assessment">

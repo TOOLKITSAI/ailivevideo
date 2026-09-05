@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { canonicalUrl } from '../lib/seo';
+---
+<BaseLayout title="Disclaimer | AI Live Video" description="Read the limits of AI Live Video's editorial information, product references, and third-party links." canonicalPath="/disclaimer/" breadcrumbs={[{name:'Home',url:canonicalUrl('/')},{name:'Disclaimer'}]}>
+  <article class="container utility-page"><p class="eyebrow">Disclaimer</p><h1>Editorial information and its limits</h1>
+    <p>AI Live Video provides general information to support your own research.</p>
+    <section><h2>Verify before deciding</h2><p>Content may become outdated and is not professional, technical, financial, legal, or purchasing advice. Check official sources and test products for your intended use. We do not guarantee completeness, accuracy, or suitability for a particular purpose.</p></section>
+    <section><h2>Independent services</h2><p>External links do not mean that we control, endorse, or guarantee a third-party site. Product names, logos, and trademarks belong to their respective owners and are used for identification and editorial reference.</p></section>
+    <section><h2>Related policies</h2><p>Read our <a href="/terms/">terms</a>, <a href="/affiliate-disclosure/">affiliate disclosure</a>, and <a href="/editorial-policy/">editorial policy</a>. To report an error, <a href="/contact/">contact us</a>.</p></section>
+  </article>
+</BaseLayout>

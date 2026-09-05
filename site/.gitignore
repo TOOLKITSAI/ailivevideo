@@ -22,3 +22,11 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Local environment variants
+.env.*
+!.env.example
+!.env.sample
+# Local acceptance artifacts
+audit/
+test-results/
